@@ -953,13 +953,42 @@ data-da="селектор, breakpoint, place"
 </div>
 ```
 
-Поддерживается:
-- `data-one-spoller`
-- `data-spollers-speed`
-- `data-open`
-- `data-spoller-scroll`
-- `data-spoller-scroll-noheader`
-- `data-spoller-close`
+Атрибуты:
+
+| Атрибут                    | Куда ставится           | Что делает |
+| ---                        | ---                     | --- |
+| `data-spollers`            | контейнер               | включает спойлеры внутри блока |
+| `data-spollers="991,max"`  | контейнер               | включает спойлеры только на ширине `<= 991px` |
+| `data-spollers="991,min"`  | контейнер               | включает спойлеры только на ширине `>= 991px` |
+| `data-one-spoller`         | контейнер               | режим аккордеона: одновременно открыт только один `details` |
+| `data-spollers-speed="400"`| контейнер               | скорость анимации открытия/закрытия в миллисекундах |
+| `data-open`                | `details`               | делает конкретный спойлер открытым при инициализации |
+| `data-spoller-scroll`      | `details`               | после открытия прокручивает страницу к этому спойлеру |
+| `data-spoller-scroll="20"` | `details`               | то же самое, но с дополнительным offset сверху |
+| `data-spoller-scroll-noheader` | `details`           | при автоскролле дополнительно учитывает высоту `.header` |
+| `data-spoller-close`       | обычно `summary`        | закрывает этот спойлер при клике вне блока `data-spollers` |
+
+Как это работает:
+- если `data-spollers` без значения, спойлеры активны всегда;
+- если задан breakpoint через `data-spollers="брейкпоинт,тип"`, то вне этого диапазона `details` просто остаются раскрытыми без JS-поведения;
+- `data-open` проверяется только на старте и позволяет держать нужный пункт открытым по умолчанию;
+- `data-spoller-scroll` срабатывает только в момент открытия;
+- `data-spoller-close` имеет смысл ставить на тот `summary`, который должен схлопываться по клику вне спойлерного блока.
+
+Пример со скроллом и закрытием по внешнему клику:
+
+```html
+<div data-spollers data-one-spoller data-spollers-speed="400">
+  <details data-open data-spoller-scroll="20" data-spoller-scroll-noheader>
+    <summary data-spoller-close>Вопрос 1</summary>
+    <div>Ответ 1</div>
+  </details>
+  <details>
+    <summary>Вопрос 2</summary>
+    <div>Ответ 2</div>
+  </details>
+</div>
+```
 
 ### Tabs
 
