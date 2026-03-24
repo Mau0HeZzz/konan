@@ -1,0 +1,396 @@
+@use "../variables";
+@use "sass:math";
+
+//Подключение шрифта
+@mixin font($font_name, $file_name, $weight, $style) {
+	@font-face {
+		font-family: $font_name;
+		font-display: swap;
+		src:
+			url("../fonts/#{$file_name}.woff2") format("woff2"),
+			url("../fonts/#{$file_name}.woff") format("woff");
+		font-weight: #{$weight};
+		font-style: #{$style};
+	}
+}
+//Percent
+@function percent($px, $from: 100) {
+	$result: math.div($px, $from) * 100%;
+	@return $result;
+}
+
+@function vw($px, $from: 100) {
+	$result: math.div($px, $from) * 100vw;
+	@return $result;
+}
+
+@function vh($px, $from: 100) {
+	$result: math.div($px, $from) * 100vh;
+	@return $result;
+}
+
+@function lsp($percents) {
+	$result: calc((var(--font-size) / 100) * $percents);
+	@return $result;
+}
+//REM
+@function toRem($px, $current: 16) {
+	$result: math.div($px, $current) + rem;
+	@return $result;
+}
+//EM
+@function toEm($px, $current: 16) {
+	$result: math.div($px, $current) + em;
+	@return $result;
+}
+
+//Currency
+@mixin currency($sym) {
+	&::after {
+		content: "#{$sym}";
+	}
+}
+
+// Треугольник
+@mixin triangle($direction, $color, $size, $size2: $size) {
+	@if $direction == left {
+		border: toRem($size2) solid transparent;
+		border-right: toRem($size) solid $color;
+	}
+	@if $direction == right {
+		border: toRem($size2) solid transparent;
+		border-left: toRem($size) solid $color;
+	}
+	@if $direction == top {
+		border: toRem($size2) solid transparent;
+		border-bottom: toRem($size) solid $color;
+	}
+	@if $direction == bottom {
+		border: toRem($size2) solid transparent;
+		border-top: toRem($size) solid $color;
+	}
+}
+
+// Grids
+@mixin gridCards($type: fit, $min: 280px, $max: 1fr, $gap: 30px) {
+	display: grid;
+	gap: $gap;
+	grid-template-columns: repeat(auto-#{$type}, minmax($min, $max));
+}
+
+// Адаптивное свойство (clamp)
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: 1200, $widthTo: 480, $keepSize: 0, $isContainer: 0) {
+	@if ($startSize==0) {
+		$startSize: 0.000001;
+	}
+	@if ($minSize==0) {
+		$minSize: 0.000001;
+	}
+
+	// Для calc();
+	$addSize: math.div($startSize - $minSize, 16);
+
+	@if ($widthFrom == variables.$containerWidth and variables.$maxWidthContainer == 0) {
+		$widthFrom: variables.$maxWidth;
+	}
+
+	// Брейк поинты в EM
+	$widthFromMedia: toEm($widthFrom);
+	$widthToMedia: toEm($widthTo);
+
+	// Формула плавающего значения
+	// Источник: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+	$slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+	$yIntersection: -$widthTo * $slope + $minSize;
+	@if ($yIntersection==0) {
+		$yIntersection: 0.000001;
+	}
+	$flyValue: #{toRem($yIntersection)}" + " #{$slope * 100}vw;
+
+	// Получение значения свойства
+	$propertyValue: #{"clamp(" toRem($minSize) "," $flyValue "," toRem($startSize) ")"};
+	// Если отрицательные значения
+	@if ($minSize > $startSize) {
+		$propertyValue: #{"clamp(" toRem($startSize) "," $flyValue "," toRem($minSize) ")"};
+	}
+
+  @if ($isContainer != 1) {
+    // Устанавливаем значение по умолчанию
+    @if $keepSize != 1 and $keepSize != 3 {
+      @media (min-width: $widthFromMedia) {
+        #{$property}: toRem($startSize);
+      }
+    }
+    // Адаптируем размер в промежутке между указанными ширинами вьюпорта
+    @media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
+      #{$property}: $propertyValue;
+    }
+    @if $keepSize != 1 and $keepSize != 2 {
+      @media (max-width: $widthToMedia) {
+        #{$property}: toRem($minSize);
+      }
+    }
+  } @else {
+    @if $keepSize != 1 and $keepSize != 3 {
+      @container (width > #{$widthFromMedia}) {
+        #{$property}: toRem($startSize);
+      }
+    }
+    // Адаптируем размер в промежутке между указанными ширинами вьюпорта
+    @container (#{$widthFromMedia} > width > #{$widthToMedia}) {
+      #{$property}: $propertyValue;
+    }
+  
+    @if $keepSize != 1 and $keepSize != 2 {
+      @container (width < #{$widthToMedia}) {
+        #{$property}: toRem($minSize);
+      }
+    }
+  }
+}
+
+@mixin adaptiveValueContainer($property, $startSize, $minSize, $widthFrom: 1920, $widthTo: 360, $keepSize: 0, $isContainer: 0) {
+	@if ($startSize==0) {
+		$startSize: 0.000001;
+	}
+	@if ($minSize==0) {
+		$minSize: 0.000001;
+	}
+
+	// Для calc();
+	$addSize: math.div($startSize - $minSize, 16);
+
+	@if ($widthFrom == variables.$containerWidth and variables.$maxWidthContainer == 0) {
+		$widthFrom: variables.$maxWidth;
+	}
+
+	// Брейк поинты в EM
+	$widthFromMedia: toEm($widthFrom);
+	$widthToMedia: toEm($widthTo);
+
+	// Формула плавающего значения
+	// Источник: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+	$slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+	$yIntersection: -$widthTo * $slope + $minSize;
+	@if ($yIntersection==0) {
+		$yIntersection: 0.000001;
+	}
+	$flyValue: #{toRem($yIntersection)}" + " #{$slope * 100}cqw;
+
+	// Получение значения свойства
+	$propertyValue: #{"clamp(" toRem($minSize) "," $flyValue "," toRem($startSize) ")"};
+	// Если отрицательные значения
+	@if ($minSize > $startSize) {
+		$propertyValue: #{"clamp(" toRem($startSize) "," $flyValue "," toRem($minSize) ")"};
+	}
+
+  @if $keepSize != 1 and $keepSize != 3 {
+    @container (width > #{$widthFromMedia}) {
+      #{$property}: toRem($startSize);
+    }
+  }
+  // Адаптируем размер в промежутке между указанными ширинами вьюпорта
+  @container (#{$widthFromMedia} > width > #{$widthToMedia}) {
+    #{$property}: $propertyValue;
+  }
+
+  @if $keepSize != 1 and $keepSize != 2 {
+    @container (width < #{$widthToMedia}) {
+      #{$property}: toRem($minSize);
+    }
+  }
+}
+
+// Grid-контейнер
+@mixin gridContainer($type: 0, $container: variables.$maxWidthContainer, $paddingStart: math.div(variables.$containerPadding, 2), $paddingEnd: math.div(variables.$containerPadding, 2)) {
+	display: grid;
+	min-width: 0;
+	grid-template-columns: toRem($paddingStart) 1fr minmax(auto, toRem($container)) 1fr toRem($paddingEnd);
+	> * {
+		min-width: 0;
+		@if $type==1 {
+			grid-column: 1 / 6;
+		} @else if $type==2 {
+			grid-column: 2 / 5;
+		} @else if $type==3 {
+			grid-column: 3 / 6;
+		} @else if $type==4 {
+			grid-column: 1 / 4;
+		} @else if $type==5 {
+			grid-column: 2 / 4;
+		} @else if $type==6 {
+			grid-column: 3 / 5;
+		} @else {
+			grid-column: 3 / 4;
+		}
+	}
+}
+
+@mixin btn {
+  display: flex;
+  justify-content:center;align-items: center;
+  min-height: var(--size);
+  min-width: var(--size);
+  padding: toRem(5) toRem(20);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  border-radius: toRem(10);
+  text-transform: lowercase;
+
+  background-color: var(--bgc);
+  color: var(--color);
+  border: toRem(2) solid var(--border-color);
+
+  --size: #{toRem(44)};
+
+  --bgc: transparent;
+  --bgc-hover: var(--bgc);
+  --bgc-active: var(--bgc-hover);
+  --bgc-disabled: var(--bgc);
+
+  --color: var(--main-black-color);
+  --color-hover: var(--color);
+  --color-active: var(--color-hover);
+  --color-disabled: var(--color);
+
+  --border-color: var(--bgc);
+  --border-color-hover: var(--bgc-hover);
+  --border-color-active: var(--bgc-active);
+  --border-color-disabled: var(--bgc-disabled);
+
+  @media (any-hover: hover) {
+    &:hover{
+      background-color: var(--bgc-hover);
+      color: var(--color-hover);
+      border: toRem(2) solid var(--border-color-hover);
+    }
+  }
+
+  &._active {
+    background-color: var(--bgc-active);
+    color: var(--color-active);
+    border: toRem(2) solid var(--border-color-active);
+  }
+
+  &[disabled] {
+    background-color: var(--bgc-disabled);
+    color: var(--color-disabled);
+    border: toRem(2) solid var(--border-color-disabled);
+  }
+
+  svg, img, i {
+    &:first-child {
+      margin-right: toRem(10);
+    }
+    &:last-child {
+      margin-left: toRem(4);
+    }
+  }
+
+  .loaded & {
+    transition: all 0.3s ease 0s;
+  }
+}
+
+@mixin btn-white {
+  --bgc: var(--main-white-color);
+  --bgc-hover: var(--main-blue-color);
+  --bgc-disabled: var(--main-white-color);
+
+  --color: var(--main-black-color);
+  --color-hover: var(--main-white-color);
+  --color-disabled: var(--dark-grey-color);
+}
+
+@mixin btn-blue {
+  --bgc: var(--main-blue-color);
+  --bgc-hover: var(--main-white-color);
+  --bgc-disabled: var(--light-blue-color);
+
+  --color: var(--main-white-color);
+  --color-hover: var(--main-blue-color);
+  --color-disabled: var(--main-white-color);
+}
+
+@mixin btn-border {
+  --bgc: transparent;
+  --bgc-hover: var(--main-blue-color);
+  --bgc-disabled: transparent;
+
+  --color: var(--main-blue-color);
+  --color-hover: var(--main-white-color);
+  --color-disabled: var(--light-blue-color);
+
+  --border-color: var(--main-blue-color);
+  --border-color-disabled: var(--light-blue-color);
+}
+
+@mixin btn-transparent {
+  --bgc: transparent;
+  --bgc-hover: var(--main-blue-color);
+  --bgc-disabled: transparent;
+
+  --color: var(--main-black-color);
+  --color-hover: var(--main-white-color);
+  --color-disabled: var(--dark-grey-color);
+}
+
+@mixin btn-icon {
+  padding: 0;
+  justify-content:center;align-items: center;
+  position: relative;
+
+  svg, img, i {
+    margin: 0 !important;
+  }
+}
+
+@mixin btn-big {
+  --size: #{toRem(54)};
+}
+
+@mixin btn-small {
+  padding: toRem(12) toRem(10);
+  min-height: toRem(32);
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: math.div(8 , 12);
+
+  @include adaptiveValue("font-size", 12, 10);
+}
+
+@mixin btn-blackborder {
+  --bgc: transparent;
+  --bgc-hover: var(--main-blue-color);
+  --bgc-disabled: transparent;
+
+  --color: var(--main-black-color);
+  --color-hover: var(--main-white-color);
+  --color-disabled: var(--dark-grey-color);
+
+  --border-color: var(--main-black-color);
+  --border-color-disabled: var(--dark-grey-color);
+}
+
+@mixin btn-black {
+  --bgc: var(--main-black-color);
+  --bgc-hover: var(--main-blue-color);
+
+  --color: var(--main-white-color);
+
+  --border-color: var(--main-black-color);
+}
+
+@mixin btn-whiteborder {
+  --bgc: transparent;
+  --bgc-hover: var(--main-blue-color);
+  --bgc-disabled: transparent;
+
+  --color: var(--main-white-color);
+  --color-hover: var(--main-white-color);
+  --color-disabled: var(--dark-grey-color);
+
+  --border-color: var(--main-white-color);
+  --border-color-disabled: var(--dark-grey-color);
+}

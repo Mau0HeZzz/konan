@@ -1,0 +1,66 @@
+@use "/src/scss/variables.scss";
+@use "/src/scss/base/mixins.scss";
+@use "sass:math";
+
+.contacts {
+  margin-bottom: mixins.toRem(10);
+
+  &__container {
+    @include mixins.adaptiveValue("padding-top", 30, 10);
+  }
+
+  &__head {
+    &:not(:last-child) {
+      @include mixins.adaptiveValue("margin-bottom", 70, 30);
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-weight: 900;
+    text-transform: uppercase;
+
+    @include mixins.adaptiveValue("font-size", 40, 22);
+  }
+
+  &__body {
+    display: grid;
+    gap: mixins.toRem(10);
+
+    @media (width >= #{mixins.toEm(550)}) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__item {
+    background-color: var(--bgc);
+    color: var(--main-white-color);
+    min-height: mixins.toRem(170);
+    display: flex;
+    flex-direction: column;
+    gap: mixins.toRem(15);
+    justify-content: space-between;
+    padding: mixins.toRem(15);
+
+    @include mixins.adaptiveValue("border-radius", 15, 10);
+
+    p {
+      text-transform: lowercase;
+      font-size: mixins.toRem(12);
+    }
+
+    a {
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: mixins.toRem(20);
+
+      &[href] {
+        @media (any-hover: hover) {
+          &:hover{
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

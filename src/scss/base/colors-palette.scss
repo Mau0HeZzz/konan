@@ -1,0 +1,25 @@
+@use "/src/scss/variables.scss";
+@use "/src/scss/base/mixins.scss";
+@use "sass:math";
+
+:root {
+  --main-black-color: #343434;
+  --main-white-color: #F4F2EF;
+  --main-blue-color: #489EF1;
+  --main-blue-color-opacity: rgba(72, 159, 241, 0.95);
+  --main-red-color: #E52E2E;
+  --main-grey-color: #E7E5E1;
+  
+  --dark-grey-color: #878785;
+  
+  --light-red-color: #FFBDBE;
+  --light-blue-color: #A3CEF8;
+
+  --header-shadow-color: #00000026;
+
+  --modal_bg: #34343466;
+
+  --header-shadow: #{mixins.toRem(0)} #{mixins.toRem(5)} #{mixins.toRem(15)} #{mixins.toRem(0)} var(--header-shadow-color);
+
+  --base-indent: #{mixins.toRem(5)};
+}

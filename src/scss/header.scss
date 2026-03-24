@@ -1,0 +1,496 @@
+@use "/src/scss/variables.scss";
+@use "/src/scss/base/mixins.scss";
+@use "sass:math";
+
+.header {
+  position: fixed;
+  pointer-events: none;
+  z-index: 4;
+  top: mixins.toRem(10);
+  left: mixins.toRem(10);
+  right: mixins.toRem(10);
+
+  .menu-open & {
+    opacity: 0;
+    transition: all 0.3s ease 0s;
+  }
+
+  &__container {
+    @media (width < #{mixins.toEm(variables.$pc)}) {
+      padding: 0;
+    }
+  }
+
+  &__wrapper {
+    background-color: var(--main-white-color);
+    padding: mixins.toRem(5);
+    box-shadow: var(--header-shadow);
+    border-radius: mixins.toRem(10);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: mixins.toRem(8);
+    border: mixins.toRem(1) solid var(--main-grey-color);
+    pointer-events: all;
+  }
+
+  &__logo {
+
+    @include mixins.adaptiveValue("max-width", 93, 59);
+
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      margin-left: mixins.toRem(15);
+    }
+  }
+
+  &__menu {
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
+  &__callback {
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      @include mixins.btn-white;
+    }
+    @media (width < #{mixins.toEm(variables.$tablet)}) {
+      margin-top: auto;
+      @include mixins.btn-blue;
+    }
+  }
+
+  &__cart {
+  }
+}
+.menu {
+
+  &__icon {
+    @include mixins.adaptiveValue("--size", 44, 32);
+  }
+
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    background-color: var(--modal_bg);
+    backdrop-filter: blur(mixins.toRem(5));
+    pointer-events: none;
+    opacity: 0;
+    cursor: pointer;
+
+    .loaded & {
+      transition: opacity 0.3s ease 0s;
+    }
+
+    .menu-open & {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  &__body {
+    .loaded & {
+      transition: translate 0.3s ease 0s;
+    }
+
+    @media (width < #{mixins.toEm(variables.$tablet)}) {
+      z-index: 5;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100dvh;
+      width: 100%;
+      max-width: mixins.toRem(480);
+      background-color: var(--main-white-color);
+      padding: mixins.toRem(10);
+      overflow: clip auto;
+      overscroll-behavior: contain;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+      translate: -110% 0;
+
+      .menu-open & {
+        translate: none;
+        pointer-events: all;
+      }
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: mixins.toRem(16);
+
+    &:not(:last-child) {margin-bottom: mixins.toRem(30);}
+
+    &::after {
+      content:'';
+      flex: 0 0 mixins.toRem(20);
+    }
+  }
+
+  &__close {
+    display: flex;
+    justify-content:center;align-items: center;
+
+    .loaded & {
+      transition: color 0.3s ease 0s;
+    }
+
+    @media (any-hover: hover) {
+      &:hover{
+        color: #fff;
+      }
+    }
+  }
+
+  &__list {
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      display: flex;
+    }
+    @media (width < #{mixins.toEm(variables.$tablet)}) {
+      &:not(:last-child) {margin-bottom: mixins.toRem(30);}
+    }
+  }
+
+  &__subtitle {
+    margin-top: mixins.toRem(30);
+    font-weight: 500;
+    font-size: mixins.toRem(10);
+    color: var(--dark-grey-color);
+    line-height: math.div(7 , 10);
+
+    &:not(:last-child) {margin-bottom: mixins.toRem(10);}
+  }
+
+  &__item {
+    position: relative;
+
+    @media (any-hover: hover) {
+      &:has(.menu__dropdown):hover{
+        .menu__dropdown {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+    }
+  }
+
+  &__link {
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      @include mixins.btn;
+      & {
+        @include mixins.btn-transparent;
+      }
+    }
+
+    &_catalog {
+      --color: var(--main-blue-color);
+    }
+
+    @media (any-hover: hover) {
+      &:has(+.menu__dropdown):hover{
+        +.menu__dropdown {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+    }
+
+    @media (width < #{mixins.toEm(variables.$tablet)}) {
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: mixins.toRem(10) 0;
+      line-height: math.div(11 , 16);
+    }
+  }
+
+  &__dropdown {
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      position: absolute;
+      left: 0;
+      top: calc(100% - mixins.toRem(1));
+      padding-top: mixins.toRem(16);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .loaded & {
+      transition: all 0.3s ease 0s;
+    }
+
+    @media (any-hover: hover) {
+      &:hover{
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+
+  &__catalog {
+  }
+
+  &__submenu {
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      background-color: #fff;
+      box-shadow: var(--header-shadow);
+      border-radius: mixins.toRem(15);
+      padding: mixins.toRem(5) 0;
+    }
+  }
+
+  &__sublink {
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-weight: 900;
+
+    .loaded & {
+      transition: color 0.3s ease 0s;
+    }
+
+    @media (any-hover: hover) {
+      &:hover{
+        color: var(--main-blue-color);
+      }
+    }
+
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      padding: mixins.toRem(10) mixins.toRem(15);
+    }
+    @media (width < #{mixins.toEm(variables.$tablet)}) {
+      padding: mixins.toRem(10) 0;
+      line-height: math.div(11 , 16);
+    }
+  }
+}
+.catalog-menu {
+  @media (width >= #{mixins.toEm(variables.$tablet)}) {
+    display: flex;
+    background-color: var(--main-white-color);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: mixins.toRem(10);
+    padding: mixins.toRem(10);
+    border-radius: mixins.toRem(15);
+    width: mixins.toRem(685);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: mixins.toRem(20);
+
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-weight: 900;
+    .loaded & {
+      transition: color 0.3s ease 0s;
+    }
+    @media (any-hover: hover) {
+      &:hover{
+        color: var(--main-blue-color);
+      }
+    }
+
+    img {
+      aspect-ratio: 1;
+    }
+
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      padding: mixins.toRem(10) mixins.toRem(15);
+      border-radius: mixins.toRem(10);
+      background-color: var(--main-grey-color);
+    }
+    @media (width < #{mixins.toEm(variables.$tablet)}) {
+      padding: mixins.toRem(10) 0;
+      line-height: math.div(11 , 16);
+
+      img {
+        display: none;
+      }
+    }
+  }
+}
+.cart-header {
+  position: relative;
+
+  &__icon {
+    align-items: flex-end;
+    padding: mixins.toRem(4);
+
+    @include mixins.adaptiveValue("--size", 44, 32);
+
+    i {
+      font-style: normal;
+      font-weight: 700;
+      font-size: mixins.toRem(14);
+
+      position: absolute;
+      top: mixins.toRem(4);
+      left: 50%;
+      translate: -25% 0;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    right: mixins.toRem(-5);
+    top: calc(100% + mixins.toRem(15));
+    padding: mixins.toRem(10);
+    width: min(mixins.toRem(480), calc(100vw - mixins.toRem(20)));
+    border: mixins.toRem(1) solid var(--main-grey-color);
+
+    background-color: var(--main-white-color);
+    opacity: 0;
+    pointer-events: none;
+    translate: 0 mixins.toRem(-20);
+
+    .loaded & {
+      transition: all 0.3s linear 0s;
+    }
+
+    .cart-dropdown-open & {
+      opacity: 1;
+      pointer-events: all;
+      translate: none
+    }
+
+    @include mixins.adaptiveValue("border-radius", 15, 10);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include mixins.adaptiveValue("padding-top", 8, 4);
+
+    &::before {
+      content:'';
+      flex: 0 0 mixins.toRem(20);
+    }
+
+    &:not(:last-child) {margin-bottom: mixins.toRem(30);}
+  }
+
+  &__title {
+    font-weight: 900;
+    text-transform: uppercase;
+    display: flex;
+    align-items: flex-start;
+
+    @include mixins.adaptiveValue("font-size", 24, 16);
+
+    sup {
+      font-weight: 500;
+      color: var(--dark-grey-color);
+      font-size: mixins.toRem(12);
+    }
+  }
+
+  &__close {
+    cursor: pointer;
+    .loaded & {
+      transition: color 0.3s ease 0s;
+    }
+    @media (any-hover: hover) {
+      &:hover{
+        color: var(--main-blue-color);
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    max-height: mixins.toRem(182);
+    overflow: clip auto;
+    margin-right: mixins.toRem(-10);
+    padding-right: mixins.toRem(10);
+    overscroll-behavior: contain;
+
+    &:not(:last-child) {margin-bottom: mixins.toRem(30);}
+  }
+
+  &__item {
+    background-color: var(--main-grey-color);
+    display: grid;
+    grid-template-columns: mixins.toRem(54) 1fr var(--quantity-size) auto;
+    align-items: center;
+    gap: mixins.toRem(10);
+    border-radius: mixins.toRem(10);
+    overflow: hidden;
+    padding-right: mixins.toRem(10);
+    flex: 0 0;
+
+    &:not(:last-child) {margin-bottom: mixins.toRem(10);}
+
+    @include mixins.adaptiveValue("--quantity-size", 90, 60);
+  }
+
+  &__image {
+    aspect-ratio: 1;
+    width: mixins.toRem(54);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  &__name {
+    font-weight: 900;
+    text-transform: uppercase;
+    @include mixins.adaptiveValue("font-size", 16, 12);
+  }
+
+  &__quantity {
+  }
+
+  &__price {
+    text-align: right;
+    text-transform: uppercase;
+    font-weight: 900;
+    min-width: var(--min-width);
+
+    @include mixins.adaptiveValue("font-size", 16, 12);
+  }
+
+  &__total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: mixins.toRem(15);
+
+    &:not(:last-child) {margin-bottom: mixins.toRem(30);}
+
+    span {
+      line-height: math.div(11 , 16);
+      @include mixins.adaptiveValue("font-size", 16, 12);
+    }
+    p {
+      font-weight: 900;
+      line-height: math.div(17 , 24);
+      @include mixins.adaptiveValue("font-size", 24, 16);
+    }
+  }
+
+  &__footer {
+  }
+
+  &__button {
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      @include mixins.btn-big;
+    }
+  }
+}

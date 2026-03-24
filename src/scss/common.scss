@@ -1,0 +1,646 @@
+// Заголовки, общие БЄМ блоки и прочее...
+@use "base/mixins";
+@use "sass:math";
+
+@use "variables";
+
+// Заголовки, общие БЄМ блоки и прочее...
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+._md1dn {
+  @media (max-width:mixins.toEm(variables.$pc)){
+    display: none !important;
+  }
+}
+
+._mmd1dn {
+  @media (min-width:mixins.toEm(variables.$pc)){
+    display: none !important;
+  }
+}
+
+._md2dn {
+  @media (max-width:mixins.toEm(variables.$tablet)){
+    display: none !important;
+  }
+}
+
+._mmd2dn {
+  @media (min-width:mixins.toEm(variables.$tablet)){
+    display: none !important;
+  }
+}
+
+._md3dn {
+  @media (max-width:mixins.toEm(variables.$mobile)){
+    display: none !important;
+  }
+}
+
+._mmd3dn {
+  @media (min-width:mixins.toEm(variables.$mobile)){
+    display: none !important;
+  }
+}
+
+._md4dn {
+  @media (max-width:mixins.toEm(variables.$mobileSmall)){
+    display: none !important;
+  }
+}
+
+._mmd4dn {
+  @media (min-width:mixins.toEm(variables.$mobileSmall)){
+    display: none !important;
+  }
+}
+
+._pen {
+  pointer-events: none;
+}
+
+._skeleton {
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+  >* {
+    position: relative;
+    z-index: 1;
+  }
+
+  &::before{
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    z-index: 2;
+    opacity: var(--opacity, 1);
+  }
+  
+  &::after{
+    content:'';
+    position: absolute;
+    top: -5%;
+    left: calc(100% + mixins.toRem(60));
+    width: mixins.toRem(40);
+    height: 110%;
+    rotate: 15deg;
+    background-color: #fff;
+    box-shadow: 0px 0px mixins.toRem(10) mixins.toRem(10) rgba(255, 255, 255, 1);
+    z-index: 3;
+    opacity: 0.4;
+    animation: skeletonAfterAnim 1s ease infinite;
+  }
+}
+
+@keyframes skeletonAfterAnim {
+  from {
+      left: -3.75rem
+  }
+}
+
+.btn {
+  @include mixins.btn;
+
+  &-white {
+    @include mixins.btn-white;
+  }
+
+  &-blue {
+    @include mixins.btn-blue;
+  }
+
+  &-border {
+    @include mixins.btn-border;
+  }
+
+  &-transparent {
+    @include mixins.btn-transparent;
+  }
+
+  &-icon {
+    @include mixins.btn-icon;
+  }
+
+  &-blackborder {
+    @include mixins.btn-blackborder;
+  }
+
+  &-whiteborder {
+    @include mixins.btn-whiteborder;
+  }
+
+  &-small {
+    @include mixins.btn-small;
+  }
+}
+
+::-webkit-scrollbar {
+  width: mixins.toRem(4);
+  height: mixins.toRem(4);
+  background-color: var(--main-white-color);
+
+  &-thumb {
+    background-color: var(--main-blue-color);
+    border-radius: calc(1px / 0);
+  }
+}
+
+.quantity {
+  display: flex;
+  border: mixins.toRem(1) solid var(--main-black-color);
+
+  @include mixins.adaptiveValue("border-radius", 10, 5);
+
+  &__button {
+    width: var(--sz);
+    height: var(--sz);
+    flex: 0 0 var(--sz);
+    display: flex;
+    justify-content:center;align-items: center;
+    position: relative;
+
+    &::before,&::after {
+      content:'';
+      height: mixins.toRem(2);
+      background-color: var(--main-black-color);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+
+      @include mixins.adaptiveValue("width", 12, 10);
+    }
+
+    &:has(i:not([hidden])) {
+      &::before,&::after {
+        display: none;
+      }
+    }
+
+    i {
+      display: flex;
+      justify-content:center;align-items: center;
+    }
+
+    @include mixins.adaptiveValue("--sz", 32, 22);
+
+    &_minus {
+    }
+
+    &_plus {
+      &::after {
+        content:'';
+        rotate: 90deg;
+      }
+    }
+  }
+
+  &__input {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+
+    input {
+      text-align: center;
+      font-weight: 900;
+      font-size: mixins.toRem(12);
+    }
+  }
+}
+
+.map-marker {
+  width: mixins.toRem(26);
+  height: mixins.toRem(40);
+  translate: -50% -100%;
+}
+
+.contact-form {
+  &:not(:last-child) {margin-bottom: mixins.toRem(10);}
+
+  &__container {
+    display: grid;
+    gap: mixins.toRem(10);
+    padding-bottom: mixins.toRem(0) !important;
+    
+    @media (width >= #{mixins.toEm(variables.$mobile)}) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__content {
+    display: grid;
+    gap: mixins.toRem(10);
+    @media (width >= #{mixins.toEm(550)}) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__item {
+    padding: mixins.toRem(15);
+    background-color: var(--main-grey-color);
+    display: flex;
+    flex-direction: column;
+    gap: mixins.toRem(18);
+    justify-content: space-between;
+
+    @include mixins.adaptiveValue("border-radius", 15, 10);
+
+    &_black {
+      color: var(--main-white-color);
+      background-color: var(--main-black-color);
+    }
+  }
+
+  &__small {
+    font-weight: 500;
+    font-size: mixins.toRem(12);
+    color: var(--dark-grey-color);
+
+    .contact-form__item_black & {
+      color: var(--main-white-color);
+    }
+  }
+
+  &__itemcontent {
+    font-weight: 900;
+    font-size: mixins.toRem(20);
+    text-transform: uppercase;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: mixins.toRem(18);
+
+    * {
+      max-width: 100%;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: mixins.toRem(5);
+  }
+
+  &__map {
+    border-radius: mixins.toRem(15);
+    overflow: hidden;
+    @include mixins.adaptiveValue("min-height", 350, 170);
+    @media (width >= #{mixins.toEm(variables.$mobile)}) {
+      max-width: mixins.toRem(550);
+    }
+  }
+}
+
+.form {
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: mixins.toRem(10);
+    align-items: flex-start;
+    position: relative;
+
+    .loaded & {
+      transition: all 0.3s ease 0s;
+    }
+
+    input, textarea {
+      background-color: var(--main-white-color);
+      border: mixins.toRem(1) solid transparent;
+      position: relative;
+      z-index: 2;
+
+      @include mixins.adaptiveValue("font-size", 20, 12);
+      @include mixins.adaptiveValue("border-radius", 10, 7);
+
+      .loaded & {
+        transition: border-color 0.3s ease 0s;
+      }
+
+      &._form-error {
+        border-color: red;
+      }
+
+      @media (width >= #{mixins.toEm(variables.$mobile)}) {
+        padding: mixins.toRem(20);
+      }
+      @media (width < #{mixins.toEm(variables.$mobile)}) {
+        padding: mixins.toRem(10);
+      }
+    }
+
+    input {
+      @media (width >= #{mixins.toEm(variables.$mobile)}) {
+        height: mixins.toRem(54);
+      }
+      @media (width < #{mixins.toEm(variables.$mobile)}) {
+        height: mixins.toRem(44);
+      }
+    }
+
+    textarea {
+      resize: none;
+
+      @include mixins.adaptiveValue("min-height", 108, 88);
+
+      .loaded & {
+        transition: all 0.3s ease 0s;
+      }
+    }
+
+    &:has(.form__error) {
+      margin-bottom: mixins.toRem(15);
+    }
+  }
+
+  &__error {
+    font-size: mixins.toRem(12);
+    padding-left: mixins.toRem(10);
+    color: red;
+    position: absolute;
+    left: 0;
+    top: calc(100% + mixins.toRem(5));
+    translate: 0 mixins.toRem(-15);
+    opacity: 0;
+
+    .loaded & {
+      transition: all 0.3s ease 0s;
+    }
+
+    ._form-error & {
+      translate: none;
+      opacity: 1;
+    }
+  }
+
+  &__label {
+    padding-left: mixins.toRem(10);
+    text-transform: uppercase;
+    font-weight: 900;
+    line-height: math.div(11 , 16);
+    font-size: mixins.toRem(16);
+
+    ._form-error & {
+      color: red;
+    }
+  }
+
+  &__boxwrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: mixins.toRem(10);
+
+    @include mixins.adaptiveValue("font-size", 12, 10);
+
+    i {
+      flex: 0 0 var(--sz);
+      width: var(--sz);
+      height: var(--sz);
+      background-color: var(--main-white-color);
+      display: flex;
+      justify-content:center;align-items: center;
+
+      @include mixins.adaptiveValue("--sz", 32, 22);
+      @include mixins.adaptiveValue("border-radius", 10, 7);
+
+      &::before {
+        content:'';
+        --before-sz: calc(var(--sz) / 2);
+        flex: 0 0 var(--before-sz);
+        width: var(--before-sz);
+        height: var(--before-sz);
+        border-radius: mixins.toRem(4);
+        background-color: var(--main-blue-color);
+        scale: 0;
+        .loaded & {
+          transition: scale 0.3s ease 0s;
+        }
+      }
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+
+      &:checked ~ i {
+        &::before {
+          scale: 1;
+        }
+      }
+    }
+
+    a {
+      display: inline;
+      text-decoration: underline;
+      .loaded & {
+        transition: color 0.3s ease 0s;
+      }
+      @media (any-hover: hover) {
+        &:hover{
+          text-decoration: none;
+          color: var(--main-blue-color);
+        }
+      }
+    }
+  }
+
+  &__button {
+    @media (width >= #{mixins.toEm(variables.$mobile)}) {
+      @include mixins.btn-big;
+    }
+  }
+}
+
+.section {
+  &:not(:last-child) {
+    @media (width >= #{mixins.toEm(variables.$mobile)}) {
+      margin-bottom: mixins.toRem(30);
+    }
+    @media (width < #{mixins.toEm(variables.$mobile)}) {
+      margin-bottom: mixins.toRem(45);
+    }
+  }
+
+  &__container {
+    @include mixins.adaptiveValue("padding-top", 30, 10);
+    @include mixins.adaptiveValue("padding-bottom", 30, 10);
+  }
+
+  &__head {
+    &:not(:last-child) {
+      @include mixins.adaptiveValue("margin-bottom", 60, 30);
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-weight: 900;
+    text-transform: uppercase;
+
+    @include mixins.adaptiveValue("font-size", 40, 22);
+  }
+}
+
+._blue {
+  color: var(--main-blue-color);
+}
+
+.splide {
+
+  &__arrows {
+    display: flex;
+    justify-content: flex-end;
+    gap: mixins.toRem(10);
+
+    &:not(:last-child) {margin-bottom: mixins.toRem(15);}
+  }
+
+  &__arrow {
+    --color: var(--dark-grey-color);
+
+    border-radius: mixins.toRem(10);
+    display: flex;
+    align-items: center;
+    gap: mixins.toRem(4);
+    border: mixins.toRem(1) solid var(--color);
+    padding: mixins.toRem(10);
+    min-height: mixins.toRem(32);
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: mixins.toRem(12);
+    color: var(--color);
+
+    &[disabled] {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    @media (any-hover: hover) {
+      &:hover{
+        --color: var(--main-blue-color);
+      }
+    }
+  }
+}
+
+summary {
+  appearance: none;
+  list-style: none;
+
+  &::marker {
+    display: none;
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.spollers {
+
+  &__item {
+    background-color: var(--main-grey-color);
+    border-radius: mixins.toRem(10);
+  }
+
+  &__question {
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: mixins.toRem(10);
+    justify-content: space-between;
+    cursor: pointer;
+
+    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("padding-left", 20, 15);
+    @include mixins.adaptiveValue("padding-right", 20, 15);
+    @include mixins.adaptiveValue("padding-top", 16, 15);
+    @include mixins.adaptiveValue("padding-bottom", 16, 15);
+
+    &::after {
+      content:'';
+      flex: 0 0 mixins.toRem(24);
+      width: mixins.toRem(24);
+      height: mixins.toRem(24);
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.2666 10.0688C0.101852 10.2336 -0.000321303 10.4612 7.59146e-07 10.7127V13.2881C7.0158e-07 13.7916 0.407607 14.1992 0.910464 14.1986L9.80163 14.1986L9.80163 23.0895C9.80163 23.593 10.2092 24.0006 10.7121 24H13.2875C13.791 24 14.1987 23.5924 14.198 23.0895V14.1986H23.0895C23.5924 14.1992 24.0006 13.791 24 13.2881V10.7127C24 10.2092 23.5924 9.80156 23.0895 9.80221H14.198V0.910464C14.1987 0.407607 13.7904 -0.000643113 13.2875 7.60572e-07H10.7121C10.2086 7.03006e-07 9.80099 0.407606 9.80163 0.910464L9.80163 9.80221H0.910464C0.658713 9.80221 0.431349 9.90406 0.2666 10.0688Z' fill='%23343434'/%3E%3C/svg%3E%0A");
+      
+      .loaded & {
+        transition: rotate 0.3s ease 0s;
+      }
+    }
+
+    &._spoller-active {
+      &::after {
+        rotate: 45deg;
+      }
+    }
+  }
+
+  &__answer {
+    font-weight: 500;
+
+    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("padding-top", 10, 0);
+    @include mixins.adaptiveValue("padding-left", 40, 0);
+    @include mixins.adaptiveValue("padding-right", 40, 0);
+    @include mixins.adaptiveValue("padding-bottom", 20, 15);
+  }
+}
+
+.notfound {
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      font-weight: 900;
+      text-transform: uppercase;
+      @include mixins.adaptiveValue("font-size", 256, 128);
+    }
+
+    h2 {
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: math.div(28 , 40);
+
+      @include mixins.adaptiveValue("font-size", 40, 22);
+
+      &:not(:last-child) {margin-bottom: mixins.toRem(20);}
+    }
+
+    p {
+      font-weight: 500;
+      line-height: math.div(14 , 20);
+
+      @include mixins.adaptiveValue("font-size", 20, 12);
+
+      &:not(:last-child) {
+        @include mixins.adaptiveValue("margin-bottom", 60, 30);
+      }
+    }
+
+    a {}
+  }
+}

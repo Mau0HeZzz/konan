@@ -1,0 +1,114 @@
+@use "/src/scss/variables.scss";
+@use "/src/scss/base/mixins.scss";
+@use "sass:math";
+
+// ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+.footer {
+
+  &__container {
+  }
+
+  &__top {
+    padding-top: mixins.toRem(30);
+    padding-bottom: mixins.toRem(30);
+    display: flex;
+    row-gap: mixins.toRem(30);
+    
+    @include mixins.adaptiveValue("padding-left", 30, 0);
+    @include mixins.adaptiveValue("padding-right", 30, 0);
+    @include mixins.adaptiveValue("column-gap", 30, 60);
+    
+    @media (width >= #{mixins.toEm(variables.$mobileSmall)}) {
+      align-items: center;
+    }
+    @media (width < #{mixins.toEm(variables.$tablet)}) {
+      flex-wrap: wrap;
+    }
+    @media (width < #{mixins.toEm(variables.$mobileSmall)}) {
+      flex-direction: column;
+    }
+  }
+
+  &__logo {
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+
+    @media (width >= #{mixins.toEm(variables.$tablet)}) {
+      &:nth-child(1 of &) {
+        margin-left: auto;
+      }
+    }
+    @media (width >= #{mixins.toEm(variables.$mobileSmall)}) {
+      
+    }
+  }
+
+  &__coltitle {
+    text-transform: uppercase;
+    font-weight: 900;
+    color: var(--dark-grey-color);
+    line-height: math.div(14 , 20);
+
+    @include mixins.adaptiveValue("font-size", 20, 16);
+
+    &:not(:last-child) {
+      @include mixins.adaptiveValue("margin-bottom", 15, 7.5);
+    }
+  }
+
+  &__link {
+    font-weight: 500;
+    font-size: mixins.toRem(12);
+    line-height: math.div(8 , 12);
+    padding: mixins.toRem(5) 0;
+
+    &[href] {
+      .loaded & {
+        transition: color 0.3s ease 0s;
+      }
+
+      @media (any-hover: hover) {
+        &:hover{
+          color: var(--main-blue-color);
+        }
+      }
+    }
+
+    @media (width < #{mixins.toEm(variables.$mobileSmall)}) {
+      padding: mixins.toRem(7.5) 0;
+    }
+  }
+
+  &__middle {
+    padding-left: mixins.toRem(15);
+    padding-right: mixins.toRem(15);
+    background-color: var(--main-grey-color);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: mixins.toRem(12);
+    font-weight: 500;
+    line-height: math.div(11 , 16);
+
+    @include mixins.adaptiveValue("border-radius", 15, 10);
+    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("padding-top", 21.5, 15);
+    @include mixins.adaptiveValue("padding-bottom", 21.5, 15);
+
+    @media (width < #{mixins.toEm(variables.$mobileSmall)}) {
+      flex-direction: column;
+    }
+  }
+
+  &__bottom {
+    padding: mixins.toRem(10) 0;
+    display: flex;
+    justify-content: center;
+    gap: mixins.toRem(10);
+  }
+}
