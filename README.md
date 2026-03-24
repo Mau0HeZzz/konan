@@ -121,7 +121,6 @@ npm run preview
 - inputmask
 - range-слайдеры (`noUiSlider`)
 - tooltips (`tippy.js`)
-- слайдеры (`Splide`)
 - lazyload
 - scroll watcher
 - плавная навигация по `data-goto`
@@ -133,6 +132,14 @@ npm run preview
 Если какой-то модуль есть в кодовой базе, но "не работает", сначала проверьте, импортирован ли он в `src/js/app.js`.
 
 ## Формы
+
+Главная логика форм лежит в `src/js/files/forms/forms.js`.
+
+Что здесь важно:
+- `formFieldsInit()` отвечает за focus/blur, placeholder и служебные классы;
+- объект `formValidate` отвечает за проверку полей;
+- `formSubmit()` отвечает за submit, `data-ajax`, `data-dev`, popup после success/error и прокрутку к ошибкам;
+- `formQuantity()` отвечает за счетчики количества.
 
 ### Базовые правила разметки
 
@@ -295,7 +302,7 @@ npm run preview
 | `data-popup-error="#popupId"`   | открыть popup после ошибочной отправки                                |
 | `data-timeout="3000"`           | через сколько миллисекунд закрыть success/error popup                 |
 | `data-goto-error`               | прокрутить к первой ошибке                                            |
-| `data-goto-error=".selector"`   | использовать свой селектор вместо `._form-error`                      |
+| `data-goto-error=".selector"`   | прокрутить к блоку по своему селектору; если его нет, ориентиром остается первый `._form-error` |
 
 Пример AJAX-формы:
 
@@ -324,7 +331,15 @@ npm run preview
 
 ### Inputmask
 
-`src/js/files/forms/inputmask.js` прогоняет `Inputmask()` по всем `input` на странице. Маска реально применяется там, где поле описано через `data-inputmask`.
+Файл: `src/js/files/forms/inputmask.js`
+
+В проекте инициализация очень простая: модуль проходит по всем элементам с `data-inputmask` и вызывает `Inputmask().mask(...)`.
+
+Это значит, что в HTML можно передавать не только `'mask':'...'`, а практически любые опции, которые понимает сам Inputmask.
+
+Полезные ссылки:
+- официальная документация и демо: https://robinherbots.github.io/Inputmask/
+- репозиторий: https://github.com/RobinHerbots/Inputmask
 
 Самый частый пример:
 
@@ -350,8 +365,33 @@ npm run preview
 >
 ```
 
+Пример через alias для даты:
+
+```html
+<input
+  type="text"
+  name="birthday"
+  placeholder="31/12/2026"
+  data-required="date"
+  data-inputmask="'alias':'datetime','inputFormat':'dd/mm/yyyy','clearIncomplete':true"
+>
+```
+
+Пример для чисел:
+
+```html
+<input
+  type="text"
+  name="amount"
+  placeholder="0"
+  data-inputmask="'alias':'numeric','groupSeparator':' ','autoGroup':true,'digits':0,'digitsOptional':false,'placeholder':'0'"
+>
+```
+
 Важно:
-- синтаксис атрибута берется из `Inputmask`;
+- синтаксис атрибута полностью определяется `Inputmask`;
+- можно использовать как явную маску через `mask`, так и готовые алиасы через `alias`;
+- часто полезны опции `placeholder`, `clearIncomplete`, `inputFormat`, `groupSeparator`, `digits`, `digitsOptional`, `autoGroup`;
 - маска и валидация даты работают лучше вместе;
 - для email маска обычно не нужна.
 
@@ -448,12 +488,14 @@ data-custom-select
 ```
 
 Нюанс по `data-scroll`:
-- высота ограничится;
-- но красивый JS-scrollbar через `SimpleBar` появится только если включить импорт `src/js/files/scroll/simplebar.js` в `src/js/app.js`.
+- атрибут просто ограничивает высоту списка;
+- внутри псевдоселекта создается прокручиваемый контейнер `.select__scroll`.
 
 ### Quantity-счетчик
 
-В проекте уже включен модуль `formQuantity()`.
+Файл: `src/js/files/forms/forms.js`, функция `formQuantity()`
+
+Счетчик включается атрибутом `data-quantity` на общем контейнере.
 
 Минимальная разметка:
 
@@ -467,16 +509,31 @@ data-custom-select
 </div>
 ```
 
-Что умеет:
-- `min`
-- `max`
-- `data-step`
-- событие `changeQuantity`
-- событие `isMinQuantityDestination`, когда счетчик упирается в минимальное значение
+Атрибуты поля `input` внутри счетчика:
+
+| Атрибут      | Что делает                                                |
+| ---          | ---                                                       |
+| `min`        | нижняя граница; если не задана, модуль считает минимумом `1` |
+| `max`        | верхняя граница; если не задана, верхней границы нет      |
+| `data-step`  | шаг плюс/минус; если не задан, используется `1`           |
+
+Как работает:
+- кнопки `.quantity__button_plus` и `.quantity__button_minus` изменяют значение с учетом `min`, `max` и `data-step`;
+- если пользователь вводит число руками, на `change` значение нормализуется по границам и шагу;
+- если в кнопке минуса есть тег `<i>`, при достижении минимума он может использоваться как иконка удаления вместо полного disable.
+
+События:
+- `changeQuantity` - вызывается после успешного изменения количества;
+- `isMinQuantityDestination` - вызывается, когда счетчик упирается в минимальное значение.
 
 ### Range-слайдер (`noUiSlider`)
 
 Модуль включен в `src/js/app.js`.
+
+Файл: `src/js/files/forms/range.js`
+
+Полезная ссылка:
+- noUiSlider docs: https://refreshless.com/nouislider/
 
 Разметка:
 
@@ -488,11 +545,24 @@ data-custom-select
 </div>
 ```
 
+Атрибуты и роли:
+
+| Атрибут / элемент             | Что делает                                                                 |
+| ---                           | ---                                                                        |
+| `data-range-parent`           | общий контейнер для слайдера и связанных input                             |
+| `data-range`                  | DOM-элемент, в который монтируется noUiSlider                              |
+| `data-min`                    | нижняя граница диапазона                                                   |
+| `data-max`                    | верхняя граница диапазона                                                  |
+| `data-values="1000,5000"`     | стартовые значения левого и правого бегунка                                |
+| `[data-min-input]`            | input, синхронизированный с левым бегунком                                 |
+| `[data-max-input]`            | input, синхронизированный с правым бегунком                                |
+
 Как это работает:
-- `data-range` - сам слайдер;
-- `data-range-parent` - общий контейнер;
-- `[data-min-input]` и `[data-max-input]` синхронизируются со слайдером;
-- `data-values="1000,5000"` задает стартовые значения.
+- `data-min` и `data-max` задают реальные границы для слайдера и ручного ввода;
+- `data-values` задает стартовые точки; в текущей реализации этот атрибут лучше считать обязательным;
+- шаг у текущего слайдера фиксированный: `1`;
+- при движении слайдера значения пишутся в `[data-min-input]` и `[data-max-input]`;
+- при ручном вводе модуль не дает уйти ниже `data-min`, выше `data-max` и пересечь один бегунок другим.
 
 ## Прочие полезные фишки и как ими пользоваться из HTML
 
@@ -572,6 +642,16 @@ data-da="селектор, breakpoint, place"
 - блокировка прокрутки body
 - работа с hash в URL
 - автоматическое восстановление фокуса
+
+Если запись hash в URL для конкретной модалки не нужна, добавьте `data-nohash` на корневой `.popup`.
+
+Пример:
+
+```html
+<div id="callbackPopup" aria-hidden="true" class="popup" data-nohash>
+  ...
+</div>
+```
 
 Отдельная мобильная фишка проекта:
 
@@ -743,20 +823,104 @@ data-da="селектор, breakpoint, place"
 
 Файл: `src/js/files/gallery.js`
 
-Чтобы включить `lightGallery`, достаточно обернуть галерею в контейнер с `data-gallery`.
+Текущая инициализация в проекте:
+- галерея подхватывается по контейнеру `[data-gallery]`;
+- внутри берутся только ссылки `a` (`selector: 'a'`);
+- подключены плагины `lgZoom`, `lgThumbnail`, `lgVideo`.
+
+Полезные ссылки:
+- общая документация: https://www.lightgalleryjs.com/docs/
+- список HTML-атрибутов: https://www.lightgalleryjs.com/docs/attributes/
+- iframe demo: https://www.lightgalleryjs.com/demos/iframe/
+- video demo: https://www.lightgalleryjs.com/demos/video-gallery/
+
+Чтобы включить `lightGallery`, достаточно обернуть набор ссылок в контейнер с `data-gallery`.
 
 Пример:
 
 ```html
 <div data-gallery>
-  <a href="/img/full-1.jpg">
+  <a href="/img/full-1.jpg" data-lg-size="1600-900">
     <img src="/img/thumb-1.jpg" alt="">
   </a>
-  <a href="/img/full-2.jpg">
+  <a
+    href="/img/full-2.jpg"
+    data-lg-size="1600-900"
+    data-sub-html="<h4>Подпись</h4><p>Короткое описание слайда</p>"
+  >
     <img src="/img/thumb-2.jpg" alt="">
   </a>
 </div>
 ```
+
+Что полезно знать:
+- для обычных изображений достаточно `href` на оригинал;
+- `data-lg-size="1600-900"` помогает lightGallery корректнее считать размер слайда;
+- `data-sub-html` добавляет подпись; это может быть и HTML-строка, и селектор на внешний блок.
+
+#### Iframe в галерее
+
+Для iframe используйте `data-iframe="true"` и источник через `data-src`.
+
+```html
+<div data-gallery>
+  <a
+    href="#"
+    data-iframe="true"
+    data-src="https://vkvideo.ru/video_ext.php?oid=-5225&id=456242810&hd=4"
+    data-iframe-title="Видеообзор"
+    data-sub-html="<h4>Видеообзор</h4>"
+  >
+    <img src="/img/home/video-reviews.png" alt="">
+  </a>
+</div>
+```
+
+Это как раз тот формат, который уже используется в проекте для видеообзоров и блока `howwork`.
+
+#### Внешнее видео: YouTube / Vimeo / прямая ссылка
+
+Если подключен `lgVideo`, можно открывать внешние видео прямо из галереи.
+
+```html
+<div data-gallery>
+  <a
+    href="#"
+    data-src="https://www.youtube.com/watch?v=ScMzIvxBSi4"
+    data-poster="/img/poster.jpg"
+    data-sub-html="<h4>YouTube-видео</h4>"
+  >
+    <img src="/img/poster.jpg" alt="">
+  </a>
+</div>
+```
+
+Полезные атрибуты:
+- `data-src` - URL ролика;
+- `data-poster` - постер до открытия видео;
+- `data-sub-html` - подпись.
+
+#### HTML5 video
+
+Для локального видео можно передать JSON в `data-video`.
+
+```html
+<div data-gallery>
+  <a
+    href="#"
+    data-lg-size="1280-720"
+    data-poster="/img/poster.jpg"
+    data-video='{"source":[{"src":"/video/demo.mp4","type":"video/mp4"}],"attributes":{"controls":true,"playsinline":true,"preload":"none"}}'
+  >
+    <img src="/img/poster.jpg" alt="">
+  </a>
+</div>
+```
+
+Итог:
+- изображения, iframe и видео можно смешивать в одном `[data-gallery]`;
+- главное, чтобы каждый элемент галереи был ссылкой `a`;
+- для нестандартных кейсов ориентируйтесь на официальные атрибуты `lightGallery`, потому что проектная инициализация почти ничего не переопределяет.
 
 ### Tooltips
 
@@ -767,32 +931,6 @@ data-da="селектор, breakpoint, place"
 ```html
 <button type="button" data-tippy-content="Подсказка">?</button>
 ```
-
-### Splide slider
-
-Файл: `src/js/files/sliders.js`
-
-Сейчас в проекте инициализация очень простая:
-- если на странице есть `.splide`, создается один `Splide`
-- настройки жестко описаны в `sliders.js`
-
-Минимальная разметка:
-
-```html
-<section class="splide" aria-label="Слайдер">
-  <div class="splide__track">
-    <ul class="splide__list">
-      <li class="splide__slide">Слайд 1</li>
-      <li class="splide__slide">Слайд 2</li>
-      <li class="splide__slide">Слайд 3</li>
-    </ul>
-  </div>
-</section>
-```
-
-Нюанс:
-- текущая реализация заточена под один слайдер на странице;
-- если понадобится несколько, `sliders.js` придется расширить.
 
 ### Spollers
 
@@ -884,10 +1022,9 @@ data-da="селектор, breakpoint, place"
 
 ## Внешние библиотеки, которые реально используются
 
-- Inputmask: https://github.com/RobinHerbots/Inputmask
+- Inputmask: https://robinherbots.github.io/Inputmask/
 - noUiSlider: https://refreshless.com/nouislider/
 - Tippy: https://atomiks.github.io/tippyjs/
-- Splide: https://splidejs.com/
 - lightGallery: https://www.lightgalleryjs.com/docs/
 - Yandex Maps JS API v3: https://yandex.ru/maps-api/docs/js-api/
 
