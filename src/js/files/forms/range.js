@@ -1,6 +1,6 @@
 // Подключение с node_modules
 import * as noUiSlider from 'nouislider';
-import { debounce, getDigFromString } from '../functions';
+import { debounce, getDigFormat, getDigFromString, setInputWidth } from '../functions';
 
 // Подключение стилей с scss/base/forms/range.scss
 // в файле scss/forms/forms.scss
@@ -21,7 +21,10 @@ export function rangeInit() {
     })
 	}
 }
-rangeInit();
+
+window.addEventListener('load', () => {
+  rangeInit();
+})
 
 function rangeSliderCreate(rangeSliderEl) {
   let updateCounter = 0;
@@ -59,20 +62,27 @@ function rangeSliderCreate(rangeSliderEl) {
       'max': max
     },
   });
+
+  if (minInput) {
+    minInput.value = getDigFormat(Math.round(minValue));
+    setInputWidth(minInput);
+  }
+  if (maxInput) {
+    maxInput.value = getDigFormat(Math.round(maxValue));
+    setInputWidth(maxInput);
+  }
   
   rangeSlider.on('update', (a, b, c, d)=>{
     if (updateCounter >= 2) {
-      if (b == 0) {
-        if (minInput) {
-          minInput.value = Math.round(c[0])
-          setRangeEvent(minInput);
-        }
+      if (minInput) {
+        minInput.value = getDigFormat(Math.round(c[0]));
+        setRangeEvent(minInput);
+        setInputWidth(minInput);
       }
-      if (b == 1) {
-        if (maxInput) {
-          maxInput.value = Math.round(c[1])
-          setRangeEvent(maxInput);
-        }
+      if (maxInput) {
+        maxInput.value = getDigFormat(Math.round(c[1]));
+        setRangeEvent(maxInput);
+        setInputWidth(maxInput);
       }
     }
 
@@ -90,8 +100,8 @@ function rangeSliderCreate(rangeSliderEl) {
 }
 
 function setRangePoints(rangeSlider, input, side, min, max) {
-  let val = parseInt(input.value);
-  let current = rangeSlider.get().map(el=>parseInt(el));
+  let val = getDigFromString(input.value);
+  let current = rangeSlider.get().map(el=>getDigFromString(el));
 
   if (val < min) val = min;
   if (side === 'min') {

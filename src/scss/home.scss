@@ -246,6 +246,17 @@
     flex-direction: column;
 
     @include mixins.adaptiveValue("border-radius", 15, 10);
+
+    .btn {
+      padding: mixins.toRem(4);
+
+      svg {
+        @include mixins.adaptiveValue("width", 34, 24);
+        @include mixins.adaptiveValue("height", 34, 24);
+      }
+
+      @include mixins.adaptiveValue("font-size", 16, 12);
+    }
   }
 
   &__title {
@@ -253,6 +264,8 @@
     justify-content:center;align-items: center;
     flex-direction: column;
     flex: 1 1 auto;
+
+    @include mixins.adaptiveValue("min-height", 234, 140);
   }
 
   &__buttons {
@@ -595,6 +608,10 @@
 
   &__review {
     @include mixins.adaptiveValue("max-width", 460, 300);
+    
+    .reviews-large & {
+      @include mixins.adaptiveValue("max-width", 560, 280);
+    }
   }
 }
 
@@ -942,6 +959,7 @@
     overflow: auto clip;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    scroll-snap-type: x mandatory;
 
     @include mixins.adaptiveValue("gap", 30, 10);
 
@@ -954,6 +972,7 @@
     display: flex;
     flex-direction: column;
     gap: mixins.toRem(15);
+    scroll-snap-align: start;
   }
 
   &__image {

@@ -1,5 +1,5 @@
 // Подключение функционала "Чертоги Фрилансера"
-import { debounce, getDigFromString, isMobile } from "./functions.js";
+import { _slideDown, _slideUp, bodyLockToggle, debounce, getDigFromString, isMobile } from "./functions.js";
 // Подключение списка активных модулей
 import { mhzModules } from "./modules.js";
 
@@ -26,6 +26,18 @@ window.addEventListener('load', () => {
 
 document.addEventListener('click', (e) => {
   checkCartDropDownState(e);
+
+  const catalogChaptersTrigger = e.target.closest('[data-chapters-catalogfull-trigger]');
+  if (catalogChaptersTrigger) {
+    e.preventDefault();
+    onCatalogChaptersTriggerClick(catalogChaptersTrigger);
+  }
+
+  const filtersTrigger = e.target.closest('[data-filters-trigger]');
+  if (filtersTrigger) {
+    document.documentElement.classList.toggle('filters-open');
+    bodyLockToggle();
+  }
 })
 
 document.addEventListener('input', (e) => {
@@ -36,6 +48,13 @@ document.addEventListener('input', (e) => {
   const momentValidationForm = e.target.closest('form[data-moment-validate]');
   if (momentValidationForm) {
     formMomentValidateHandler(momentValidationForm);
+  }
+})
+
+document.addEventListener('mouseover', (e) => {
+  const miniProduct = e.target.closest('.mini-product');
+  if (miniProduct) {
+    onMiniProductMouseOver(miniProduct);
   }
 })
 
@@ -366,3 +385,25 @@ function autoResizeTextarea(textarea, minHeight = 108, maxHeight = 600) {
 }
 
 const autoResizeTextareaDebounced = debounce(autoResizeTextarea, 200);
+
+function onCatalogChaptersTriggerClick(catalogChaptersTrigger) {
+  const dropDown = document.querySelector('[data-chapters-catalogfull-dropdown]');
+  if (!dropDown) return catalogChaptersTrigger.remove();
+
+  const isActive = !dropDown.hidden;
+
+  if (isActive) {
+    catalogChaptersTrigger.classList.remove('_active');
+    _slideUp(dropDown);
+  } else {
+    catalogChaptersTrigger.classList.add('_active');
+    _slideDown(dropDown);
+  }
+}
+
+function onMiniProductMouseOver(miniProduct) {
+  const abs = miniProduct.querySelector('.mini-product__abs');
+  if (!abs) return;
+
+  miniProduct.style.setProperty('--abs-height', `${abs.offsetHeight / 16}rem`);
+}

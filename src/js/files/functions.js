@@ -992,3 +992,53 @@ export function pluralize(number, one, few, many) {
     return forms[2];
   }
 }
+
+let inputWidthMeasureContext = null;
+
+export function setInputWidth(input) {
+  if (!(input instanceof HTMLInputElement)) return;
+  if (!inputWidthMeasureContext && typeof document !== 'undefined') {
+    inputWidthMeasureContext = document.createElement('canvas').getContext('2d');
+  }
+
+  const styles = window.getComputedStyle(input);
+  const fontSize = styles.fontSize || '16px';
+  const lineHeight = styles.lineHeight === 'normal' ? fontSize : styles.lineHeight;
+  const value = input.value || input.placeholder || '';
+  const parentWidth = input.parentElement?.getBoundingClientRect().width || 0;
+  const minWidth = 10;
+  const maxWidth = parentWidth ? parentWidth * 0.45 : Infinity;
+  const horizontalOffset = [
+    styles.paddingLeft,
+    styles.paddingRight,
+    styles.borderLeftWidth,
+    styles.borderRightWidth
+  ].reduce((sum, size) => sum + (parseFloat(size) || 0), 0);
+
+  let textWidth = fontSize ? parseFloat(fontSize) : minWidth;
+  if (inputWidthMeasureContext) {
+    inputWidthMeasureContext.font = [
+      styles.fontStyle,
+      styles.fontVariant,
+      styles.fontWeight,
+      `${fontSize}/${lineHeight}`,
+      styles.fontFamily
+    ].filter(Boolean).join(' ');
+
+    textWidth = inputWidthMeasureContext.measureText(value).width;
+
+    const letterSpacing = parseFloat(styles.letterSpacing);
+    if (!Number.isNaN(letterSpacing)) {
+      textWidth += Math.max(value.length - 1, 0) * letterSpacing;
+    }
+  }
+
+  const nextWidth = Math.max(
+    minWidth,
+    Math.min(Math.ceil(textWidth + horizontalOffset + 2), maxWidth)
+  );
+
+  input.style.minWidth = `${minWidth}px`;
+  input.style.maxWidth = '45%';
+  input.style.width = `${Math.ceil(nextWidth)}px`;
+}

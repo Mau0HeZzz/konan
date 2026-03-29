@@ -98,3 +98,157 @@
 		</div>
 	</div>
 </div>
+
+<div id="oneClickPopup" aria-hidden="true" class="popup oneClickPopup" data-da="body, 9999, last">
+	<div class="popup__wrapper">
+		<div class="popup__content oneClickPopup__content">
+      <div class="popup__dragclose" data-dragclose></div>
+      <button data-close type="button" class="popup__close">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
+          <use xlink:href="/img/sprites/sprite.svg#close-icon"></use>
+        </svg>
+      </button>
+      <form class="oneClickPopup__body popup__body">
+        <div class="oneClickPopup__cart cart-oneClickPopup">
+          <div class="cart-oneClickPopup__title">сумма заказа</div>
+          <div class="cart-oneClickPopup__products cart-header__body">
+            <div class="cart-header__item">
+              <div class="cart-header__image">
+                <img src="/img/header/cart-header-1.png" alt="Image">
+              </div>
+              <div class="cart-header__name">Konan C1</div>
+              <div class="cart-header__quantity quantity" data-quantity>
+                <button type="button" class="quantity__button quantity__button_minus">
+                  <i>
+                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <use xlink:href="/img/sprites/sprite.svg#trash-icon"></use>
+                    </svg>
+                  </i>
+                </button>
+                <div class="quantity__input">
+                  <input autocomplete="off" type="text" value="1">
+                </div>
+                <button type="button" class="quantity__button quantity__button_plus"></button>
+              </div>
+              <div class="cart-header__price">42 680 ₽</div>
+            </div>
+            <div class="cart-header__item">
+              <div class="cart-header__image">
+                <img src="/img/header/cart-header-2.png" alt="Image">
+              </div>
+              <div class="cart-header__name">Konan C5 New</div>
+              <div class="cart-header__quantity quantity" data-quantity>
+                <button type="button" class="quantity__button quantity__button_minus">
+                  <i hidden>
+                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <use xlink:href="/img/sprites/sprite.svg#trash-icon"></use>
+                    </svg>
+                  </i>
+                </button>
+                <div class="quantity__input">
+                  <input autocomplete="off" type="text" value="2">
+                </div>
+                <button type="button" class="quantity__button quantity__button_plus"></button>
+              </div>
+              <div class="cart-header__price">10 850 ₽</div>
+            </div>
+            <div class="cart-header__item">
+              <div class="cart-header__image">
+                <img src="/img/header/cart-header-3.png" alt="Image">
+              </div>
+              <div class="cart-header__name">Блок питания Mercury</div>
+              <div class="cart-header__quantity quantity" data-quantity>
+                <button type="button" class="quantity__button quantity__button_minus">
+                  <i hidden>
+                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <use xlink:href="/img/sprites/sprite.svg#trash-icon"></use>
+                    </svg>
+                  </i>
+                </button>
+                <div class="quantity__input">
+                  <input autocomplete="off" type="text" value="15">
+                </div>
+                <button type="button" class="quantity__button quantity__button_plus"></button>
+              </div>
+              <div class="cart-header__price">715 ₽</div>
+            </div>
+          </div>
+          <label class="cart-oneClickPopup__promo form__item form__item_secondary">
+            <input type="text" placeholder="введите промокод">
+          </label>
+          <ul class="cart-oneClickPopup__list dots-list">
+            <li>
+              <span>стоимость товаров</span>
+              <span>75 105 ₽</span>
+            </li>
+            <li>
+              <span>доставка</span>
+              <span>бесплатно</span>
+            </li>
+          </ul>
+          <div class="cart-oneClickPopup__total cart-header__total">
+            <span>сумма:</span>
+            <p>75 105 ₽</p>
+          </div>
+        </div>
+        <div class="oneClickPopup__buyer buyer-oneClickPopup">
+          <div class="buyer-oneClickPopup__title">покупатель</div>
+          <label class="form__item">
+            <span class="form__label">ваши данные</span>
+            <input type="text" placeholder="ФИО*" data-required data-error="error">
+          </label>
+          <label class="form__item">
+            <input type="text" placeholder="e-mail*" data-required="email" data-error="error">
+          </label>
+          <label class="form__item">
+            <input type="text" placeholder="+7 (000) 000-00-00*" data-required="phone" data-inputmask="'mask':'+7 (999) 999-99-99'">
+          </label>
+          <label class="form__item">
+            <span class="form__label">комментарий</span>
+            <textarea placeholder="например: Нужна доставка другой транспортной компанией "></textarea>
+          </label>
+          <label class="form__boxwrap">
+            <input type="checkbox" data-required>
+            <i></i>
+            <span>я принимаю <a href="#">условия обработки персональных данных</a></span>
+          </label>
+          <button type="submit" class="btn btn-blue">оформить заказ</button>
+        </div>
+      </form>
+		</div>
+	</div>
+</div>
+
+<div id="createReviewPopup" aria-hidden="true" class="popup createReviewPopup" data-da="body, 9999, last">
+	<div class="popup__wrapper">
+		<div class="popup__content createReviewPopup__content">
+      <div class="popup__dragclose" data-dragclose></div>
+      <button data-close type="button" class="popup__close">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
+          <use xlink:href="/img/sprites/sprite.svg#close-icon"></use>
+        </svg>
+      </button>
+      <form class="createReviewPopup__body popup__body">
+        <div class="createReviewPopup__title">Оставить отзыв</div>
+        <div class="form__rating rating" data-rating="set" data-name="rating-qwe">
+          <div class="form__label">Оценка</div>
+        </div>
+
+        <label class="form__item">
+          <span class="form__label">ваше имя*</span>
+          <input type="text" placeholder="введите имя" data-required data-error="error">
+        </label>
+        <label class="form__item">
+          <span class="form__label">отзыв</span>
+          <textarea placeholder="введите отзыв" data-required></textarea>
+        </label>
+        <label class="form__boxwrap">
+          <input type="checkbox" checked>
+          <i></i>
+          <span>Нажимая на кнопку, принимаю <a href="#">условия политики в отношении обработки персональных данных</a></span>
+        </label>
+        <button type="submit" class="btn btn-blue">Отправить отзыв</button>
+      </form>
+		</div>
+	</div>
+</div>

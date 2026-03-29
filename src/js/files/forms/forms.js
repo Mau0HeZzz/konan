@@ -840,18 +840,19 @@ export function formRating() {
 		if (targetElement.closest('.rating__input')) {
 			const currentElement = targetElement.closest('.rating__input');
 			const ratingValue = +currentElement.value
-			const rating = currentElement.closest('.rating')
+			const rating = currentElement.closest('[data-rating]')
 			const ratingSet = rating.dataset.rating === 'set'
 			ratingSet ? formRatingGet(rating, ratingValue) : null;
 		}
 	}
 	function formRatingInit(rating, ratingSize) {
 		let ratingItems = ``;
+    const name = rating.getAttribute('data-name') || 'rating;'
 		for (let index = 0; index < ratingSize; index++) {
 			index === 0 ? ratingItems += `<div class="rating__items">` : null
 			ratingItems += `
 				<label class="rating__item">
-					<input class="rating__input" type="radio" name="rating" value="${index + 1}">
+					<input class="rating__input" type="radio" name="${name}" value="${index + 1}">
 				</label>`
 			index === ratingSize ? ratingItems += `</div">` : null
 		}
@@ -865,6 +866,7 @@ export function formRating() {
 		formRatingSet(rating, resultRating);
 	}
 	function formRatingSet(rating, value) {
+    console.log('formRatingSet', value);
 		const ratingItems = rating.querySelectorAll('.rating__item');
 		const resultFullItems = parseInt(value);
 		const resultPartItem = value - resultFullItems;
