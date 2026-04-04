@@ -10,6 +10,7 @@ import Unfonts from 'unplugin-fonts/vite';
 
 import pages from './vitejs/pages.config'
 import { htmlReplacer } from './config/htmlReplacer';
+import { appendAssetVersion } from './config/appendAssetVersion';
 
 const pagesInput = {}
 
@@ -124,6 +125,7 @@ export default defineConfig({
     cssnanoPlugin({
       preset: "default",
     }),
+    appendAssetVersion(),
     viteHTMLIncludes({
       componentsPath: '/src/html/',
       componentsDir: '/src/html/'

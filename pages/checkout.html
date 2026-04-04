@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<load
+		src="src/html/_head.html"
+		title="оформление заказа"
+	/>
+	<body>
+		<div class="wrapper">
+      <load src="src/html/_header.html"/>
+			<main class="page">
+        <section class="breadcrumbs">
+          <div class="breadcrumbs__container">
+            <ul class="breadcrumbs__list">
+              <li><a href="#">ГЛАВНАЯ</a></li>
+              <li><span>оформление заказа</span></li>
+            </ul>
+          </div>
+        </section>
+        <form class="basket section" data-moment-validate>
+          <div class="basket__container section__container">
+            <div class="basket__head section__head">
+              <h1 class="basket__title section__title">оформление заказа</h1>
+            </div>
+            <div class="basket__main main-basket">
+              <div data-tabs class="main-basket__item">
+                <div class="main-basket__head">
+                  <h2>покупатель</h2>
+                  <nav data-tabs-titles class="main-basket__navigation">
+                    <label type="button" class="main-basket__title btn btn-small btn-greyborder _tab-active">
+                      <input type="radio" name="buyer" checked>
+                      <span>физическое лицо</span>
+                    </label>
+                    <label type="button" class="main-basket__title btn btn-small btn-greyborder">
+                      <input type="radio" name="buyer">
+                      <span>юридическое лицо</span>
+                    </label>
+                  </nav>
+                </div>
+                <div data-tabs-body class="main-basket__content">
+                  <div class="main-basket__body">
+                    <div class="form__row">
+                      <label class="form__item">
+                        <span class="form__label">ваши данные</span>
+                        <input type="text" placeholder="ФИО*" data-required>
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="e-mail*" data-required="email">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" data-inputmask="'mask':'+7 (999) 999-99-99'" placeholder="+7 (000) 000-00-00*" data-required="phone">
+                      </label>
+                    </div>
+                    <label class="form__boxwrap">
+                      <input type="checkbox">
+                      <i></i>
+                      <span>я принимаю <a href="#">условия обработки персональных данных</a></span>
+                    </label>
+                  </div>
+                  <div class="main-basket__body">
+                    <div class="form__row">
+                      <label class="form__item">
+                        <span class="form__label">ваши данные</span>
+                        <input type="text" placeholder="Название компании*" data-required>
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="Юридический адрес">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="ИНН">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="КПП">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="Контактное лицо*" data-required>
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="E-Mail*" data-required="email">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="+7 (000) 000-00-00" data-inputmask="'mask':'+7 (999) 999-99-99'" data-required="phone">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="Факс">
+                      </label>
+                    </div>
+                    <label class="form__boxwrap">
+                      <input type="checkbox">
+                      <i></i>
+                      <span>Нажимая на кнопку, принимаю <a href="#">условия политики в отношении обработки персональных данных</a></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="main-basket__item">
+                <div class="main-basket__head">
+                  <h2>Доставка</h2>
+                </div>
+                <div class="main-basket__content">
+                  <div class="main-basket__body">
+                    <div data-spollers class="form__dropboxes dropboxes-form">
+                      <div class="dropboxes-form__label">способ доставки</div>
+                      <details class="dropboxes-form__item" data-open>
+                        <summary class="dropboxes-form__title">
+                          <span>выберите Способ доставки*</span>
+                          <span data-comment="Нужен чтоб вставлять сюда текст выбранного пункта"></span>
+                        </summary>
+                        <div class="dropboxes-form__body">
+                          <label class="form__boxwrap">
+                            <input type="radio" name="delivery-method" id="" data-required>
+                            <i></i>
+                            <span>
+                              <span>самовывоз</span>
+                              <span>бесплатно</span>
+                            </span>
+                          </label>
+                          <label class="form__boxwrap">
+                            <input type="radio" name="delivery-method" id="" data-required>
+                            <i></i>
+                            <span>
+                              <span>курьер</span>
+                              <span>Бесплатная доставка от 5 000 ₽</span>
+                            </span>
+                          </label>
+                        </div>
+                      </details>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <span class="form__label">адрес доставки</span>
+                        <input type="text" placeholder="улица и дом*" data-required>
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="кв./офис">
+                      </label>
+                      <label class="form__item">
+                        <input type="text" placeholder="домофон">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <input type="text" placeholder="подъезд">
+                      </label>
+                      <label class="form__item">
+                        <input type="text" placeholder="этаж">
+                      </label>
+                    </div>
+                    <div class="form__row">
+                      <label class="form__item">
+                        <span class="form__label">комментарий</span>
+                        <textarea placeholder="например: Нужна доставка другой транспортной компанией "></textarea>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="main-basket__item">
+                <div class="main-basket__head">
+                  <h2>оплата</h2>
+                </div>
+                <div class="main-basket__content">
+                  <div class="main-basket__body">
+                    <div data-spollers class="form__dropboxes dropboxes-form">
+                      <div class="dropboxes-form__label">способ оплаты</div>
+                      <details class="dropboxes-form__item">
+                        <summary class="dropboxes-form__title">
+                          <span>выберите Способ оплаты*</span>
+                          <span data-comment="Нужен чтоб вставлять сюда текст выбранного пункта">Яндекс пэй</span>
+                        </summary>
+                        <div class="dropboxes-form__body">
+                          <label class="form__boxwrap">
+                            <input type="radio" name="payment-method" id="" data-required checked>
+                            <i></i>
+                            <span>
+                              <span>Яндекс пэй</span>
+                            </span>
+                          </label>
+                          <label class="form__boxwrap">
+                            <input type="radio" name="payment-method" id="" data-required>
+                            <i></i>
+                            <span>
+                              <span>не Яндекс пэй</span>
+                            </span>
+                          </label>
+                        </div>
+                      </details>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+			</main>
+      <load src="src/html/_contact-form.html"/>
+      <load src="src/html/_footer.html"/>
+		</div>
+    <load src="src/html/_js.html"/>
+	</body>
+</html>

@@ -144,3 +144,6 @@ body {
 @include meta.load-css("contacts");
 @include meta.load-css("catalog");
 @include meta.load-css("product");
+@include meta.load-css("sales");
+@include meta.load-css("others");
+@include meta.load-css("basket");

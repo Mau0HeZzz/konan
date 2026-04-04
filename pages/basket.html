@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+	<load
+		src="src/html/_head.html"
+		title="корзина"
+	/>
+	<body>
+		<div class="wrapper">
+      <load src="src/html/_header.html"/>
+			<main class="page">
+        <section class="breadcrumbs">
+          <div class="breadcrumbs__container">
+            <ul class="breadcrumbs__list">
+              <li><a href="#">ГЛАВНАЯ</a></li>
+              <li><span>корзина</span></li>
+            </ul>
+          </div>
+        </section>
+        <form class="basket section" data-moment-validate>
+          <div class="basket__container section__container">
+            <div class="basket__head section__head">
+              <h1 class="basket__title section__title">корзина</h1>
+            </div>
+            <div class="basket__body">
+              <div class="basket__main main-basket _md-992-dn">
+                <div data-tabs class="main-basket__item">
+                  <div class="main-basket__head">
+                    <h2>покупатель</h2>
+                    <nav data-tabs-titles class="main-basket__navigation">
+                      <label type="button" class="main-basket__title btn btn-small btn-greyborder _tab-active">
+                        <input type="radio" name="buyer" checked>
+                        <span>физическое лицо</span>
+                      </label>
+                      <label type="button" class="main-basket__title btn btn-small btn-greyborder">
+                        <input type="radio" name="buyer">
+                        <span>юридическое лицо</span>
+                      </label>
+                    </nav>
+                  </div>
+                  <div data-tabs-body class="main-basket__content">
+                    <div class="main-basket__body">
+                      <div class="form__row">
+                        <label class="form__item">
+                          <span class="form__label">ваши данные</span>
+                          <input type="text" placeholder="ФИО*" data-required>
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="e-mail*" data-required="email">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" data-inputmask="'mask':'+7 (999) 999-99-99'" placeholder="+7 (000) 000-00-00*" data-required="phone">
+                        </label>
+                      </div>
+                      <label class="form__boxwrap">
+                        <input type="checkbox">
+                        <i></i>
+                        <span>я принимаю <a href="#">условия обработки персональных данных</a></span>
+                      </label>
+                    </div>
+                    <div class="main-basket__body">
+                      <div class="form__row">
+                        <label class="form__item">
+                          <span class="form__label">ваши данные</span>
+                          <input type="text" placeholder="Название компании*" data-required>
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="Юридический адрес">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="ИНН">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="КПП">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="Контактное лицо*" data-required>
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="E-Mail*" data-required="email">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="+7 (000) 000-00-00" data-inputmask="'mask':'+7 (999) 999-99-99'" data-required="phone">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="Факс">
+                        </label>
+                      </div>
+                      <label class="form__boxwrap">
+                        <input type="checkbox">
+                        <i></i>
+                        <span>Нажимая на кнопку, принимаю <a href="#">условия политики в отношении обработки персональных данных</a></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="main-basket__item">
+                  <div class="main-basket__head">
+                    <h2>Доставка</h2>
+                  </div>
+                  <div class="main-basket__content">
+                    <div class="main-basket__body">
+                      <div data-spollers class="form__dropboxes dropboxes-form">
+                        <div class="dropboxes-form__label">способ доставки</div>
+                        <details class="dropboxes-form__item" data-open>
+                          <summary class="dropboxes-form__title">
+                            <span>выберите Способ доставки*</span>
+                            <span data-comment="Нужен чтоб вставлять сюда текст выбранного пункта"></span>
+                          </summary>
+                          <div class="dropboxes-form__body">
+                            <label class="form__boxwrap">
+                              <input type="radio" name="delivery-method" id="" data-required>
+                              <i></i>
+                              <span>
+                                <span>самовывоз</span>
+                                <span>бесплатно</span>
+                              </span>
+                            </label>
+                            <label class="form__boxwrap">
+                              <input type="radio" name="delivery-method" id="" data-required>
+                              <i></i>
+                              <span>
+                                <span>курьер</span>
+                                <span>Бесплатная доставка от 5 000 ₽</span>
+                              </span>
+                            </label>
+                          </div>
+                        </details>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <span class="form__label">адрес доставки</span>
+                          <input type="text" placeholder="улица и дом*" data-required>
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="кв./офис">
+                        </label>
+                        <label class="form__item">
+                          <input type="text" placeholder="домофон">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <input type="text" placeholder="подъезд">
+                        </label>
+                        <label class="form__item">
+                          <input type="text" placeholder="этаж">
+                        </label>
+                      </div>
+                      <div class="form__row">
+                        <label class="form__item">
+                          <span class="form__label">комментарий</span>
+                          <textarea placeholder="например: Нужна доставка другой транспортной компанией "></textarea>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="main-basket__item">
+                  <div class="main-basket__head">
+                    <h2>оплата</h2>
+                  </div>
+                  <div class="main-basket__content">
+                    <div class="main-basket__body">
+                      <div data-spollers class="form__dropboxes dropboxes-form">
+                        <div class="dropboxes-form__label">способ оплаты</div>
+                        <details class="dropboxes-form__item">
+                          <summary class="dropboxes-form__title">
+                            <span>выберите Способ оплаты*</span>
+                            <span data-comment="Нужен чтоб вставлять сюда текст выбранного пункта">Яндекс пэй</span>
+                          </summary>
+                          <div class="dropboxes-form__body">
+                            <label class="form__boxwrap">
+                              <input type="radio" name="payment-method" id="" data-required checked>
+                              <i></i>
+                              <span>
+                                <span>Яндекс пэй</span>
+                              </span>
+                            </label>
+                            <label class="form__boxwrap">
+                              <input type="radio" name="payment-method" id="" data-required>
+                              <i></i>
+                              <span>
+                                <span>не Яндекс пэй</span>
+                              </span>
+                            </label>
+                          </div>
+                        </details>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+              <aside class="basket__sidebar">
+                <div class="oneClickPopup__cart cart-oneClickPopup">
+                  <div class="cart-oneClickPopup__title">сумма заказа</div>
+                  <div class="cart-oneClickPopup__products cart-header__body">
+                    <div class="cart-header__item">
+                      <div class="cart-header__image">
+                        <img src="/img/header/cart-header-1.png" alt="Image">
+                      </div>
+                      <div class="cart-header__name">Konan C1</div>
+                      <div class="cart-header__quantity quantity" data-quantity>
+                        <button type="button" class="quantity__button quantity__button_minus">
+                          <i>
+                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <use xlink:href="/img/sprites/sprite.svg#trash-icon"></use>
+                            </svg>
+                          </i>
+                        </button>
+                        <div class="quantity__input">
+                          <input autocomplete="off" type="text" value="1">
+                        </div>
+                        <button type="button" class="quantity__button quantity__button_plus"></button>
+                      </div>
+                      <div class="cart-header__price">42 680 ₽</div>
+                    </div>
+                    <div class="cart-header__item">
+                      <div class="cart-header__image">
+                        <img src="/img/header/cart-header-2.png" alt="Image">
+                      </div>
+                      <div class="cart-header__name">Konan C5 New</div>
+                      <div class="cart-header__quantity quantity" data-quantity>
+                        <button type="button" class="quantity__button quantity__button_minus">
+                          <i hidden>
+                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <use xlink:href="/img/sprites/sprite.svg#trash-icon"></use>
+                            </svg>
+                          </i>
+                        </button>
+                        <div class="quantity__input">
+                          <input autocomplete="off" type="text" value="2">
+                        </div>
+                        <button type="button" class="quantity__button quantity__button_plus"></button>
+                      </div>
+                      <div class="cart-header__price">10 850 ₽</div>
+                    </div>
+                    <div class="cart-header__item">
+                      <div class="cart-header__image">
+                        <img src="/img/header/cart-header-3.png" alt="Image">
+                      </div>
+                      <div class="cart-header__name">Блок питания Mercury</div>
+                      <div class="cart-header__quantity quantity" data-quantity>
+                        <button type="button" class="quantity__button quantity__button_minus">
+                          <i hidden>
+                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <use xlink:href="/img/sprites/sprite.svg#trash-icon"></use>
+                            </svg>
+                          </i>
+                        </button>
+                        <div class="quantity__input">
+                          <input autocomplete="off" type="text" value="15">
+                        </div>
+                        <button type="button" class="quantity__button quantity__button_plus"></button>
+                      </div>
+                      <div class="cart-header__price">715 ₽</div>
+                    </div>
+                  </div>
+                  <label class="cart-oneClickPopup__promo form__item form__item_secondary">
+                    <input type="text" placeholder="введите промокод">
+                  </label>
+                  <ul class="cart-oneClickPopup__list dots-list">
+                    <li>
+                      <span>стоимость товаров</span>
+                      <span>75 105 ₽</span>
+                    </li>
+                    <li>
+                      <span>доставка</span>
+                      <span>бесплатно</span>
+                    </li>
+                  </ul>
+                  <div class="cart-oneClickPopup__total cart-header__total">
+                    <span>сумма:</span>
+                    <p>75 105 ₽</p>
+                  </div>
+                  <div class="cart-oneClickPopup__buttons">
+                    <a href="#" class="btn btn-big btn-border" data-popup="#oneClickPopup">купить в 1 клик</a>
+                    <button type="submit" class="btn btn-big btn-blue _md-992-dn">оформить заказ</button>
+                    <a href="#" class="btn btn-big btn-blue _mmd-992-dn">оформить заказ</a>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </form>
+			</main>
+      <load src="src/html/_contact-form.html"/>
+      <load src="src/html/_footer.html"/>
+		</div>
+    <load src="src/html/_js.html"/>
+	</body>
+</html>

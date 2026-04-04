@@ -10,13 +10,14 @@ import { mhzModules } from "../files/modules.js";
 // data-watch-once - смотреть только один раз
 // _watcher-view - класс который добавляется при появлении объекта
 
-class ScrollWatcher {
+export class ScrollWatcher {
 	constructor(props) {
 		let defaultConfig = {
 			logging: true,
 		}
 		this.config = Object.assign(defaultConfig, props);
 		this.observer;
+		this.observers = [];
 		!document.documentElement.classList.contains('watcher') ? this.scrollWatcherRun() : null;
 	}
 	// Обновляем конструктор
@@ -24,7 +25,14 @@ class ScrollWatcher {
 		this.scrollWatcherRun();
 	}
 	// Запускаем конструктор
+	scrollWatcherCleanup() {
+		if (!this.observers.length) return;
+		this.observers.forEach(observer => observer.disconnect());
+		this.observers = [];
+		this.observer = null;
+	}
 	scrollWatcherRun() {
+		this.scrollWatcherCleanup();
 		document.documentElement.classList.add('watcher');
 		this.scrollWatcherConstructor(document.querySelectorAll('[data-watch]'));
 	}
@@ -116,20 +124,26 @@ class ScrollWatcher {
 	}
 	// Функция создания нового наблюдателя с вашими настройками
 	scrollWatcherCreate(configWatcher) {
-		this.observer = new IntersectionObserver((entries, observer) => {
+		const observer = new IntersectionObserver((entries, observer) => {
 			entries.forEach(entry => {
 				this.scrollWatcherCallback(entry, observer);
 			});
 		}, configWatcher);
+		this.observer = observer;
+		this.observers.push(observer);
+		return observer;
 	}
 	// Функция инициализации наблюдателя с его настройками
 	scrollWatcherInit(items, configWatcher) {
 		// Создание нового наблюдателя с вашими настройками
-		this.scrollWatcherCreate(configWatcher);
+		const observer = this.scrollWatcherCreate(configWatcher);
 		// Передача элементов наблюдателю
-		items.forEach(item => this.observer.observe(item));
+		items.forEach(item => observer.observe(item));
 	}
 	// Функция обработки базовых действий точек срабатывания
+	destroy() {
+		this.scrollWatcherCleanup();
+	}
 	scrollWatcherIntersecting(entry, targetElement) {
 		if (entry.isIntersecting) {
 			// Видим объект

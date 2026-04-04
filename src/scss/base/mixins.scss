@@ -237,6 +237,8 @@
   align-items: center;
   border-radius: toRem(10);
   text-transform: lowercase;
+  position: relative;
+  cursor: pointer;
 
   background-color: var(--bgc);
   color: var(--color);
@@ -296,6 +298,14 @@
 
   .loaded & {
     transition: all 0.3s ease 0s;
+  }
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
   }
 }
 
@@ -358,6 +368,18 @@
 
 @mixin btn-small {
   padding: toRem(12) toRem(10);
+  min-height: toRem(32);
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: math.div(8 , 12);
+
+  --size: #{toRem(32)};
+
+  @include adaptiveValue("font-size", 12, 10);
+}
+
+@mixin btn-smaller {
+  padding: toRem(6) toRem(10);
   min-height: toRem(32);
   text-transform: uppercase;
   font-weight: 900;
@@ -437,4 +459,41 @@
       opacity: 1;
       pointer-events: all;
     }
+}
+
+@mixin skeleton {
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+  >* {
+    position: relative;
+    z-index: 1;
+  }
+
+  &::before{
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-grey-color);
+    z-index: 2;
+    opacity: var(--opacity, 1);
+  }
+  
+  &::after{
+    content:'';
+    position: absolute;
+    top: -5%;
+    left: calc(100% + toRem(60));
+    width: toRem(40);
+    height: 110%;
+    rotate: 15deg;
+    background-color: #fff;
+    box-shadow: 0px 0px toRem(10) toRem(10) rgba(255, 255, 255, 1);
+    z-index: 3;
+    opacity: 0.4;
+    animation: skeletonAfterAnim 1s ease infinite;
+  }
 }

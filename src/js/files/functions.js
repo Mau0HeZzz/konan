@@ -401,8 +401,8 @@ export function tabs() {
 	}
 	function setTabsAction(e) {
 		const el = e.target;
-		if (el.closest('[data-tabs-title]')) {
-			const tabTitle = el.closest('[data-tabs-title]');
+    const tabTitle = el.closest('[data-tabs-title]');
+		if (tabTitle) {
 			const tabsBlock = tabTitle.closest('[data-tabs]');
 			if (!tabTitle.classList.contains('_tab-active') && !tabsBlock.querySelector('._slide')) {
 				let tabActiveTitle = tabsBlock.querySelectorAll('[data-tabs-title]._tab-active');
@@ -411,7 +411,13 @@ export function tabs() {
 				tabTitle.classList.add('_tab-active');
 				setTabsStatus(tabsBlock);
 			}
-			e.preventDefault();
+
+      if (tabTitle.tagName !== 'LABEL') {
+        e.preventDefault();
+      }
+      if (tabTitle.querySelector('input')) {
+        tabTitle.querySelector('input').click();
+      }
 		}
 	}
 }

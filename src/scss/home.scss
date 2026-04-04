@@ -607,10 +607,12 @@
   }
 
   &__review {
-    @include mixins.adaptiveValue("max-width", 460, 300);
-    
-    .reviews-large & {
-      @include mixins.adaptiveValue("max-width", 560, 280);
+    .splide & {
+      @include mixins.adaptiveValue("max-width", 460, 300);
+      
+      .reviews-large & {
+        @include mixins.adaptiveValue("max-width", 560, 280);
+      }
     }
   }
 }
@@ -945,6 +947,9 @@
 // ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 .media-center {
+  &:last-child {
+    padding-bottom: mixins.toRem(60);
+  }
 
   &__container {
   }
