@@ -28,6 +28,7 @@
   &__item {
     display: flex;
     flex-direction: column;
+    max-width: calc(100vw - mixins.toRem(20));
 
     .blog__body & {
       &:first-child {
@@ -89,7 +90,7 @@
     line-height: 1.2;
     font-weight: 900;
 
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
   }
 
   &__description {
@@ -100,7 +101,7 @@
     overflow: hidden;
     font-weight: 500;
 
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 
   &__footer {
@@ -167,6 +168,6 @@
     font-weight: 500;
     line-height: 1.2;
 
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
   }
 }

@@ -54,7 +54,7 @@
     color: var(--dark-grey-color);
     line-height: math.div(14 , 20);
 
-    @include mixins.adaptiveValue("font-size", 20, 16);
+    @include mixins.adaptiveValue("font-size", 20, 18);
 
     &:not(:last-child) {
       @include mixins.adaptiveValue("margin-bottom", 15, 7.5);
@@ -63,9 +63,10 @@
 
   &__link {
     font-weight: 500;
-    font-size: mixins.toRem(12);
-    line-height: math.div(8 , 12);
+    font-size: mixins.toRem(14);
+    line-height: math.div(16 , 12);
     padding: mixins.toRem(5) 0;
+    text-transform: lowercase;
 
     &[href] {
       .loaded & {
@@ -94,14 +95,27 @@
     gap: mixins.toRem(12);
     font-weight: 500;
     line-height: math.div(11 , 16);
+    text-transform: lowercase;
 
     @include mixins.adaptiveValue("border-radius", 15, 10);
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
     @include mixins.adaptiveValue("padding-top", 21.5, 15);
     @include mixins.adaptiveValue("padding-bottom", 21.5, 15);
 
     @media (width < #{mixins.toEm(variables.$mobileSmall)}) {
       flex-direction: column;
+    }
+
+    a {
+      .loaded & {
+        transition: color 0.3s ease 0s;
+      }
+
+      @media (any-hover: hover) {
+        &:hover{
+          color: var(--main-blue-color);
+        }
+      }
     }
   }
 

@@ -261,6 +261,8 @@
   --border-color-active: var(--bgc-active);
   --border-color-disabled: var(--bgc-disabled);
 
+  @include adaptiveValue("font-size", 16, 14);
+
   @media (any-hover: hover) {
     &:hover{
       background-color: var(--bgc-hover);
@@ -372,10 +374,9 @@
   text-transform: uppercase;
   font-weight: 900;
   line-height: math.div(8 , 12);
+  font-size: toRem(12);
 
   --size: #{toRem(32)};
-
-  @include adaptiveValue("font-size", 12, 10);
 }
 
 @mixin btn-smaller {
@@ -384,10 +385,9 @@
   text-transform: uppercase;
   font-weight: 900;
   line-height: math.div(8 , 12);
+  font-size: toRem(12);
 
   --size: #{toRem(32)};
-
-  @include adaptiveValue("font-size", 12, 10);
 }
 
 @mixin btn-blackborder {

@@ -259,8 +259,9 @@ img {
 
   &__small {
     font-weight: 500;
-    font-size: mixins.toRem(12);
+    font-size: mixins.toRem(14);
     color: var(--dark-grey-color);
+    text-transform: lowercase;
 
     .contact-form__item_black & {
       color: var(--main-white-color);
@@ -278,6 +279,14 @@ img {
 
     * {
       max-width: 100%;
+    }
+
+    a {
+      @media (any-hover: hover) {
+        &:hover{
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -315,6 +324,10 @@ img {
     align-items: flex-start;
     position: relative;
 
+    &, *::placeholder {
+      text-transform: lowercase;
+    }
+
     .loaded & {
       transition: all 0.3s ease 0s;
     }
@@ -325,7 +338,7 @@ img {
       position: relative;
       z-index: 2;
 
-      @include mixins.adaptiveValue("font-size", 20, 12);
+      @include mixins.adaptiveValue("font-size", 20, 14);
       @include mixins.adaptiveValue("border-radius", 10, 7);
 
       .loaded & {
@@ -413,8 +426,7 @@ img {
     align-items: center;
     cursor: pointer;
     gap: mixins.toRem(10);
-
-    @include mixins.adaptiveValue("font-size", 12, 10);
+    font-size: mixins.toRem(14);
 
     i {
       flex: 0 0 var(--sz);
@@ -465,7 +477,7 @@ img {
       }
       @media (any-hover: hover) {
         &:hover{
-          text-decoration: none;
+          // text-decoration: none;
           color: var(--main-blue-color);
         }
       }
@@ -473,6 +485,7 @@ img {
 
     >span {
       flex: 1 1 auto;
+      text-transform: lowercase;
 
       &:has(span:nth-child(2)) {
         display: flex;
@@ -481,12 +494,12 @@ img {
 
         span:nth-child(1) {
           font-weight: 500;
-          @include mixins.adaptiveValue("font-size", 20, 12);
+          @include mixins.adaptiveValue("font-size", 20, 14);
         }
 
         span:nth-child(2) {
           font-weight: 500;
-          @include mixins.adaptiveValue("font-size", 16, 8);
+          @include mixins.adaptiveValue("font-size", 16, 12);
         }
       }
     }
@@ -507,6 +520,7 @@ img {
   flex-direction: column;
   gap: mixins.toRem(10);
   align-items: flex-start;
+  text-transform: lowercase;
 
   &__label {
     padding-left: mixins.toRem(10);
@@ -534,7 +548,7 @@ img {
 
     @include mixins.adaptiveValue("border-radius", 10, 7);
     @include mixins.adaptiveValue("padding", 20, 15);
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
 
     .loaded & {
       transition: all 0.5s ease 0s;
@@ -626,7 +640,7 @@ img {
     text-transform: uppercase;
     flex-wrap: wrap;
 
-    @include mixins.adaptiveValue("font-size", 40, 22);
+    @include mixins.adaptiveValue("font-size", 40, 26);
 
     sup {
       font-weight: 500;
@@ -709,7 +723,7 @@ summary {
     justify-content: space-between;
     cursor: pointer;
 
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
     @include mixins.adaptiveValue("padding-left", 20, 15);
     @include mixins.adaptiveValue("padding-right", 20, 15);
     @include mixins.adaptiveValue("padding-top", 16, 15);
@@ -736,8 +750,9 @@ summary {
 
   &__answer {
     font-weight: 500;
+    text-transform: lowercase;
 
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
     @include mixins.adaptiveValue("padding-top", 10, 0);
     @include mixins.adaptiveValue("padding-left", 40, 15);
     @include mixins.adaptiveValue("padding-right", 40, 15);
@@ -746,11 +761,13 @@ summary {
 }
 
 .notfound {
+  margin-bottom: mixins.toRem(30);
 
   &__container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 
     h1 {
       font-weight: 900;
@@ -763,29 +780,37 @@ summary {
       text-transform: uppercase;
       line-height: math.div(28 , 40);
 
-      @include mixins.adaptiveValue("font-size", 40, 22);
+      @include mixins.adaptiveValue("font-size", 40, 26);
 
       &:not(:last-child) {margin-bottom: mixins.toRem(20);}
     }
 
     p {
       font-weight: 500;
-      line-height: math.div(14 , 20);
+      text-transform: lowercase;
 
-      @include mixins.adaptiveValue("font-size", 20, 12);
+      @include mixins.adaptiveValue("font-size", 20, 14);
 
       &:not(:last-child) {
         @include mixins.adaptiveValue("margin-bottom", 60, 30);
       }
-    }
 
-    a {}
+      @media (width >= #{mixins.toEm(variables.$mobile)}) {
+        line-height: math.div(14 , 20);
+      }
+      @media (width < #{mixins.toEm(variables.$mobile)}) {
+        line-height: 1.2;
+      }
+    }
   }
 }
 
 .breadcrumbs {
 
   &__container {
+    @media (width < #{mixins.toEm(variables.$mobile)}) {
+      padding-bottom: mixins.toRem(20);
+    }
   }
 
   &__list {
@@ -1102,6 +1127,7 @@ summary {
     display: flex;
     gap: mixins.toRem(4);
     font-weight: 500;
+    text-transform: lowercase;
 
     @include mixins.adaptiveValue("font-size", 16, 12);
 
@@ -1129,12 +1155,13 @@ summary {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-transform: lowercase;
 
     .loaded & {
       transition: color 0.3s ease 0s;
     }
 
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 
   &__abs {
@@ -1251,6 +1278,7 @@ summary {
       width: 100%;
       overflow: hidden;
       color: var(--dark-grey-color);
+      bottom: 0;
     }
 
     span {
@@ -1258,7 +1286,7 @@ summary {
       position: relative;
       font-weight: 500;
 
-      @include mixins.adaptiveValue("font-size", 16, 12);
+      @include mixins.adaptiveValue("font-size", 16, 14);
 
       &:first-child {
         padding-right: mixins.toRem(4);
@@ -1519,7 +1547,7 @@ summary {
     text-transform: lowercase;
     font-weight: 500;
 
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 }
 
@@ -1535,7 +1563,7 @@ summary {
   }
 
   h2 {
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
   }
 
   h3 {
@@ -1548,7 +1576,7 @@ summary {
     font-weight: 500;
     line-height: 1.2;
 
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
   }
 
   >ul,

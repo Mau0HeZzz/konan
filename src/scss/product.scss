@@ -199,7 +199,8 @@
   &__subtitle {
     flex: 0 0 100%;
     font-weight: 500;
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    text-transform: lowercase;
+    @include mixins.adaptiveValue("font-size", 20, 14);
   }
 
   &__chars {
@@ -213,7 +214,7 @@
       text-transform: uppercase;
       line-height: math.div(17, 24);
 
-      @include mixins.adaptiveValue("font-size", 24, 16);
+      @include mixins.adaptiveValue("font-size", 24, 18);
 
       &:not(:last-child) {margin-bottom: mixins.toRem(15);}
     }
@@ -225,7 +226,7 @@
       position: relative;
       font-weight: 500;
 
-      @include mixins.adaptiveValue("font-size", 16, 12);
+      @include mixins.adaptiveValue("font-size", 16, 14);
 
       &:not(:last-child) {
         @include mixins.adaptiveValue("margin-bottom", 15, 10);
@@ -277,7 +278,7 @@
       color: var(--light-red-color);
     }
     
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
   }
 
   &__oldprice {
@@ -304,7 +305,7 @@
   }
 
   &__plitebutton {
-    font-size: mixins.toRem(12);
+    font-size: mixins.toRem(14);
 
     @media (width < #{mixins.toEm(variables.$mobile)}) {
       grid-column: 1 / span 2;
@@ -314,8 +315,9 @@
   &__label {
     font-weight: 500;
     color: var(--dark-grey-color);
+    text-transform: lowercase;
 
-    @include mixins.adaptiveValue("font-size", 16, 10);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 }
 
@@ -343,7 +345,7 @@
 
 .description-productfull {
   font-weight: 500;
-  @include mixins.adaptiveValue("font-size", 20, 12);
+  @include mixins.adaptiveValue("font-size", 16, 14);
 }
 
 .chars-productfull {
@@ -361,7 +363,7 @@
     text-transform: lowercase;
     font-weight: 500;
     
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
     
     &:not(:last-child) {
       border-bottom: mixins.toRem(3) solid var(--main-grey-color);
@@ -401,13 +403,13 @@
       font-weight: 900;
       text-transform: uppercase;
 
-      @include mixins.adaptiveValue("font-size", 20, 16);
+      @include mixins.adaptiveValue("font-size", 20, 18);
     }
 
     p {
       color: var(--dark-grey-color);
 
-      @include mixins.adaptiveValue("font-size", 16, 12);
+      @include mixins.adaptiveValue("font-size", 16, 14);
     }
 
     &_black {
@@ -440,12 +442,15 @@
     h1,h2,h3,h4,h5 {
       font-weight: 900;
       text-transform: uppercase;
-      line-height: math.div(11 , 16);
 
-      @include mixins.adaptiveValue("font-size", 20, 16);
+      @include mixins.adaptiveValue("font-size", 20, 18);
 
       &:not(:last-child) {
         @include mixins.adaptiveValue("margin-bottom", 30, 15);
+      }
+
+      @media (width >= #{mixins.toEm(variables.$mobile)}) {
+        line-height: math.div(11 , 16);
       }
     }
 
@@ -453,14 +458,14 @@
       color: var(--dark-grey-color);
       font-weight: 500;
 
-      @include mixins.adaptiveValue("font-size", 16, 12);
+      @include mixins.adaptiveValue("font-size", 16, 14);
     }
 
     ul {
       padding-left: mixins.toRem(27);
       font-weight: 500;
 
-      @include mixins.adaptiveValue("font-size", 16, 12);
+      @include mixins.adaptiveValue("font-size", 16, 14);
 
       li {
         list-style: initial;

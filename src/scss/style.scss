@@ -59,6 +59,7 @@ body {
 	}
 
   &:has(.hero) {
+    --cart-dropdown-minus: #{mixins.toRem(40)};
     .header {
       top: mixins.toRem(20);
       left: mixins.toRem(20);

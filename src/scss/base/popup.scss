@@ -122,6 +122,8 @@ body::after {
     font-size: mixins.toRem(24);
     text-transform: uppercase;
     padding-top: mixins.toRem(10);
+    padding-left: mixins.toRem(10);
+    padding-right: mixins.toRem(10);
     &:not(:last-child) {margin-bottom: mixins.toRem(30);}
 
     @media (width >= #{mixins.toEm(variables.$mobile)}) {
@@ -334,8 +336,11 @@ body::after {
 
   &__buttons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: mixins.toRem(10);
+    
+    &:has(:nth-child(2)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 

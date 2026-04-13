@@ -16,6 +16,7 @@
 
   &__sidebar {
     background-color: var(--main-grey-color);
+    text-transform: lowercase;
 
     @include mixins.adaptiveValue("padding", 20, 15);
     @include mixins.adaptiveValue("border-radius", 15, 10);
@@ -37,7 +38,7 @@
 
       &:not(:last-child) {margin-bottom: mixins.toRem(15);}
 
-      @include mixins.adaptiveValue("font-size", 20, 16);
+      @include mixins.adaptiveValue("font-size", 24, 18);
     }
 
     ul {
@@ -45,7 +46,7 @@
       flex-direction: column;
       gap: mixins.toRem(5);
       font-weight: 500;
-      font-size: mixins.toRem(12);
+      font-size: mixins.toRem(14);
       line-height: 1.2;
     }
   }
@@ -241,7 +242,7 @@
     a {
       font-weight: 500;
       text-transform: lowercase;
-      @include mixins.adaptiveValue("font-size", 16, 12);
+      @include mixins.adaptiveValue("font-size", 16, 14);
 
       .loaded & {
         transition: color 0.3s ease 0s;
@@ -320,18 +321,24 @@
 
   &__products {
     display: grid;
-    grid-auto-flow: column;
-    overflow: auto clip;
     max-width: calc(100vw - mixins.toRem(10));
-    margin-right: mixins.toRem(-10);
-    padding-right: mixins.toRem(10);
-    scroll-snap-type: x mandatory;
 
     @include mixins.adaptiveValue("gap", 30, 10);
 
     .mini-product {
       min-width: mixins.toRem(180);
       scroll-snap-align: start;
+    }
+
+    @media (any-hover: hover) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (any-hover: none) {
+      grid-auto-flow: column;
+      overflow: auto clip;
+      margin-right: mixins.toRem(-10);
+      padding-right: mixins.toRem(10);
+      scroll-snap-type: x mandatory;
     }
   }
 }

@@ -61,6 +61,8 @@
   }
 
   &__text {
+    text-transform: lowercase;
+
     @include mixins.adaptiveValue("max-width", 300, 200);
 
     &:not(:last-child) {margin-bottom: mixins.toRem(60);}
@@ -86,7 +88,7 @@
     justify-content: center;
     gap: mixins.toRem(10);
 
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
 
     .btn {
       @media (width >= #{mixins.toEm(variables.$mobile)}) {
@@ -151,17 +153,19 @@
     text-transform: uppercase;
     font-weight: 900;
 
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
   }
 
   &__text {
     line-height: 1.2;
     font-weight: 500;
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    text-transform: lowercase;
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 
   &__button {
     margin-top: auto;
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 }
 
@@ -212,17 +216,18 @@
     text-transform: uppercase;
     font-weight: 900;
 
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
   }
 
   &__text {
     margin-top: auto;
+    text-transform: lowercase;
 
     &:not(.cards__item_blue &) {
       color: var(--dark-grey-color);
     }
 
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 }
 
@@ -255,7 +260,7 @@
         @include mixins.adaptiveValue("height", 34, 24);
       }
 
-      @include mixins.adaptiveValue("font-size", 16, 12);
+      @include mixins.adaptiveValue("font-size", 16, 14);
     }
   }
 
@@ -404,8 +409,9 @@
   &__text {
     margin-top: auto;
     font-weight: 500;
+    text-transform: lowercase;
 
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
   }
 }
 
@@ -445,6 +451,10 @@
     width: 100%;
     aspect-ratio: 320 / 568;
     scroll-snap-align: start;
+    overflow: hidden;
+
+    @include mixins.adaptiveValue("border-radius", 15, 10);
+    
     @media (width < #{mixins.toEm(550)}) {
       max-width: calc(var(--min-col-size) - mixins.toRem(40));
     }
@@ -475,13 +485,14 @@
   &__subtitle {
     text-transform: uppercase;
     font-weight: 900;
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
   }
 
   &__list {
     display: flex;
     flex-direction: column;
     gap: var(--gap);
+    text-transform: lowercase;
 
     @include mixins.adaptiveValue("--gap", 15, 7);
 
@@ -491,7 +502,7 @@
       gap: var(--gap);
       font-weight: 500;
 
-      @include mixins.adaptiveValue("font-size", 20, 12);
+      @include mixins.adaptiveValue("font-size", 20, 14);
 
       svg {
         flex: 0 0 var(--sz);
@@ -533,34 +544,57 @@
   &__body {
     display: grid;
     gap: mixins.toRem(10);
+    --row-height: #{mixins.toRem(154)};
+    --gap: #{mixins.toRem(10)};
+
     @media (width >= #{mixins.toEm(variables.$mobile)}) {
       grid-template-columns: 3.13fr 1fr;
     }
     @media (width < #{mixins.toEm(variables.$mobile)}) {
-      grid-template-columns: repeat(3, 1fr);
+      --row-height: #{mixins.toRem(53)};
+    }
+  }
+
+  &__main {
+    @media (width < #{mixins.toEm(variables.$mobile)}) {
+      aspect-ratio: 300 / 169;
+    }
+  }
+
+  &__sidebar {
+    display: grid;
+    gap: var(--gap);
+    max-height: calc((var(--row-height) * 3) + (var(--gap) * 2));
+
+    @media (width >= #{mixins.toEm(variables.$mobile)}) {
+      overflow: clip auto;
+      scroll-snap-type: y mandatory;
+      grid-template-rows: repeat(auto-fit, var(--row-height));
+    }
+    @media (width < #{mixins.toEm(variables.$mobile)}) {
+      overflow: auto clip;
+      scroll-snap-type: x mandatory;
+      grid-auto-flow: column;
+      grid-template-rows: mixins.toRem(53);
     }
   }
 
   &__item {
     cursor: pointer;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
+    min-height: var(--row-height);
+    min-width: mixins.toRem(100);
+    scroll-snap-align: start;
 
     @include mixins.adaptiveValue("border-radius", 15, 5);
 
-    img {
+    img, iframe {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
-    }
-
-    &:first-child {
-      @media (width >= #{mixins.toEm(variables.$mobile)}) {
-        grid-row: 1 / span 3;
-      }
-      @media (width < #{mixins.toEm(variables.$mobile)}) {
-        grid-column: 1 / span 3;
-      }
     }
   }
 }
@@ -664,7 +698,7 @@
     text-transform: lowercase;
     font-weight: 500;
 
-    @include mixins.adaptiveValue("font-size", 16, 10);
+    @include mixins.adaptiveValue("font-size", 16, 12);
   }
 }
 
@@ -684,6 +718,22 @@
     @include mixins.adaptiveValue("--image-size", 65, 35);
 
     &:not(:last-child) {margin-bottom: mixins.toRem(15);}
+
+    &[href] {
+      .review-reviews__title {
+        .loaded & {
+          transition: color 0.3s ease 0s;
+        }
+      }
+
+      @media (any-hover: hover) {
+        &:hover{
+          .review-reviews__title {
+            color: var(--main-blue-color);
+          }
+        }
+      }
+    }
   }
 
   &__image {
@@ -706,7 +756,7 @@
     text-transform: uppercase;
     line-height: math.div(17 , 24);
 
-    @include mixins.adaptiveValue("font-size", 24, 14);
+    @include mixins.adaptiveValue("font-size", 24, 16);
   }
 
   &__name {
@@ -732,8 +782,9 @@
 
   &__text {
     font-weight: 500;
+    text-transform: lowercase;
 
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 }
 
@@ -762,7 +813,7 @@
     font-weight: 500;
     line-height: 1.12;
 
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
   }
 
   &__body {
@@ -850,7 +901,7 @@
     text-transform: uppercase;
     
     @include mixins.adaptiveValue("padding", 10, 5);
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
 
     @media (width >= #{mixins.toEm(variables.$mobile)}) {
       &:not(:last-child) {margin-bottom: mixins.toRem(7);}
@@ -859,9 +910,11 @@
 
   &__text {
     margin-top: auto;
+    text-transform: lowercase;
 
     @include mixins.adaptiveValue("padding-left", 10, 5);
     @include mixins.adaptiveValue("padding-right", 10, 5);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 
   &__button {
@@ -1000,7 +1053,7 @@
     text-transform: uppercase;
     padding: 0 mixins.toRem(10);
 
-    @include mixins.adaptiveValue("font-size", 24, 16);
+    @include mixins.adaptiveValue("font-size", 24, 18);
   }
 
   &__text {
@@ -1010,8 +1063,9 @@
     overflow: hidden;
     padding: 0 mixins.toRem(10);
     font-weight: 500;
+    text-transform: lowercase;
 
-    @include mixins.adaptiveValue("font-size", 16, 12);
+    @include mixins.adaptiveValue("font-size", 16, 14);
   }
 
   &__footer {
@@ -1076,17 +1130,24 @@
 
     @include mixins.adaptiveValue("padding-left", 10, 5);
     @include mixins.adaptiveValue("padding-right", 10, 5);
-    @include mixins.adaptiveValue("font-size", 24, 22);
 
     &:not(:last-child) {margin-bottom: mixins.toRem(20);}
+
+    @media (width >= #{mixins.toEm(variables.$mobile)}) {
+      font-size: mixins.toRem(24);
+    }
+    @media (width < #{mixins.toEm(variables.$mobile)}) {
+      font-size: mixins.toRem(26);
+    }
   }
 
   &__subtitle {
     font-weight: 500;
     max-width: mixins.toRem(760);
     line-height: 1.2;
+    text-transform: lowercase;
 
-    @include mixins.adaptiveValue("font-size", 20, 12);
+    @include mixins.adaptiveValue("font-size", 20, 14);
     @include mixins.adaptiveValue("padding-left", 10, 5);
   }
 

@@ -116,7 +116,7 @@ export default defineConfig({
         injectTo: 'head',
       },
     }),
-    ViteImageOptimizer(DEFAULT_OPTIONS),
+    // ViteImageOptimizer(DEFAULT_OPTIONS),
     handlebars({
       partialDirectory: resolve(__dirname, 'src/html'),
     }),

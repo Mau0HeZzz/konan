@@ -20,7 +20,7 @@
     font-weight: 900;
     text-transform: uppercase;
 
-    @include mixins.adaptiveValue("font-size", 40, 22);
+    @include mixins.adaptiveValue("font-size", 40, 26);
   }
 
   &__body {
@@ -46,7 +46,7 @@
 
     p {
       text-transform: lowercase;
-      font-size: mixins.toRem(12);
+      font-size: mixins.toRem(14);
     }
 
     a {
