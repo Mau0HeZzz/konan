@@ -22,11 +22,11 @@ a:focus,
 a:active {
 	// outline: none;
 }
-// html {
-//   @media (width >= 1600px) {
-//     font-size: 1vw;
-//   }
-// }
+html {
+  @media (width >= 1600px) {
+    font-size: 1vw;
+  }
+}
 html,
 body {
 	height: 100%;
