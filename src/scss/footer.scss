@@ -19,9 +19,9 @@
     @include mixins.adaptiveValue("padding-right", 30, 0);
     @include mixins.adaptiveValue("column-gap", 30, 60);
     
-    @media (width >= #{mixins.toEm(variables.$mobileSmall)}) {
-      align-items: center;
-    }
+    // @media (width >= #{mixins.toEm(variables.$mobileSmall)}) {
+    //   align-items: center;
+    // }
     @media (width < #{mixins.toEm(variables.$tablet)}) {
       flex-wrap: wrap;
     }
@@ -65,7 +65,7 @@
     font-weight: 500;
     font-size: mixins.toRem(14);
     line-height: math.div(16 , 12);
-    padding: mixins.toRem(5) 0;
+    padding: mixins.toRem(3) 0;
     text-transform: lowercase;
 
     &[href] {

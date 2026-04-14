@@ -553,6 +553,12 @@
     @media (width < #{mixins.toEm(variables.$mobile)}) {
       --row-height: #{mixins.toRem(53)};
     }
+
+    a {
+      * {
+        pointer-events: none;
+      }
+    }
   }
 
   &__main {
@@ -587,6 +593,7 @@
     min-height: var(--row-height);
     min-width: mixins.toRem(100);
     scroll-snap-align: start;
+    display: block;
 
     @include mixins.adaptiveValue("border-radius", 15, 5);
 
@@ -807,7 +814,7 @@
 
   &__text {
     max-width: mixins.toRem(705);
-    text-transform: lowercase;
+    // text-transform: lowercase;
     margin: 0 auto;
     text-align: center;
     font-weight: 500;
@@ -910,7 +917,7 @@
 
   &__text {
     margin-top: auto;
-    text-transform: lowercase;
+    // text-transform: lowercase;
 
     @include mixins.adaptiveValue("padding-left", 10, 5);
     @include mixins.adaptiveValue("padding-right", 10, 5);

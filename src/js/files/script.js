@@ -554,5 +554,7 @@ function onMiniProductMouseOver(miniProduct) {
   const abs = miniProduct.querySelector('.mini-product__abs');
   if (!abs) return;
 
-  miniProduct.style.setProperty('--abs-height', `${abs.offsetHeight / 16}rem`);
+  const docFz = getDigFromString(window.getComputedStyle(document.documentElement)?.getPropertyValue?.('font-size') ?? 16);
+
+  miniProduct.style.setProperty('--abs-height', `${abs.offsetHeight / docFz}rem`);
 }

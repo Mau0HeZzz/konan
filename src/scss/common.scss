@@ -1205,10 +1205,9 @@ summary {
   &__chars {
     display: flex;
     flex-direction: column;
-    gap: mixins.toRem(10);
+    gap: mixins.toRem(4);
     font-weight: 500;
     font-size: mixins.toRem(12);
-    line-height: math.div(8 , 12);
     text-transform: lowercase;
 
     li {

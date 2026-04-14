@@ -482,12 +482,13 @@
   &__name {
     font-weight: 900;
     text-transform: uppercase;
-    max-height: calc(100% - mixins.toRem(20));
+    padding: mixins.toRem(10) 0;
+    // max-height: calc(100% - mixins.toRem(20));
 
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 2;
+    // -webkit-box-orient: vertical;  
+    // overflow: hidden;
     
     @include mixins.adaptiveValue("font-size", 16, 12);
   }
@@ -519,7 +520,7 @@
     p {
       font-weight: 900;
       line-height: math.div(17 , 24);
-      @include mixins.adaptiveValue("font-size", 24, 18);
+      @include mixins.adaptiveValue("font-size", 24, 20);
     }
   }
 

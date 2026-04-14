@@ -1,4 +1,3 @@
-
 /*
 Документация по работе в шаблоне: https://www.lightgalleryjs.com/docs/
 Документация плагина: https://www.lightgalleryjs.com/docs/
@@ -37,26 +36,75 @@ import lgVideo from 'lightgallery/plugins/video/lg-video.min.js';
 // Все стили
 import '/src/scss/libs/gallery/lightgallery-bundle.scss';
 
+const isIframeSlide = (galleryClass, index) => {
+	return Boolean(galleryClass.galleryItems[index]?.iframe);
+}
+
+const getGallerySlide = (galleryClass, index) => {
+	if (index < 0) return null;
+
+	const slideItem = galleryClass.getSlideItem(index);
+	return slideItem?.get() ? slideItem : null;
+}
+
+const unloadIframeSlide = (galleryClass, index) => {
+	if (!isIframeSlide(galleryClass, index)) return;
+
+	const slideItem = getGallerySlide(galleryClass, index);
+	if (!slideItem) return;
+
+	slideItem.find('.lg-has-iframe').remove();
+	slideItem.find('.lg-error-msg').remove();
+	slideItem.removeClass('lg-loaded lg-complete lg-complete_');
+}
+
+const unloadInactiveIframes = (galleryClass, activeIndex) => {
+	galleryClass.galleryItems.forEach((item, index) => {
+		if (!item?.iframe || index === activeIndex) return;
+
+		unloadIframeSlide(galleryClass, index);
+	})
+}
+
+const unloadAllIframes = (galleryClass) => {
+	galleryClass.galleryItems.forEach((item, index) => {
+		if (!item?.iframe) return;
+
+		unloadIframeSlide(galleryClass, index);
+	})
+}
+
 // Запуск
 const galleries = document.querySelectorAll('[data-gallery]');
 if (galleries.length) {
 	let galleyItems = [];
 	galleries.forEach(gallery => {
+		const galleryClass = lightGallery(gallery, {
+			plugins: [lgZoom, lgThumbnail, lgVideo],
+			licenseKey: '7EC452A9-0CFD441C-BD984C7C-17C8456E',
+			speed: 500,
+			selector: 'a',
+		})
+
+		gallery.addEventListener('lgAfterSlide', (event) => {
+			unloadInactiveIframes(galleryClass, event.detail.index);
+		})
+
+		// lightGallery can preload соседние слайды после загрузки активного.
+		// Для iframe очищаем всё лишнее, чтобы в DOM оставался только текущий.
+		gallery.addEventListener('lgSlideItemLoad', () => {
+			unloadInactiveIframes(galleryClass, galleryClass.index);
+		})
+
+		gallery.addEventListener('lgBeforeClose', () => {
+			unloadAllIframes(galleryClass);
+		})
+
 		galleyItems.push({
 			gallery,
-			galleryClass: lightGallery(gallery, {
-				plugins: [lgZoom, lgThumbnail, lgVideo],
-				licenseKey: '7EC452A9-0CFD441C-BD984C7C-17C8456E',
-				speed: 500,
-        selector: 'a',
-			})
+			galleryClass
 		})
 	});
 	// Добавляем в объект модулей
 	mhzModules.gallery = galleyItems;
 }
-
-
-
-
-
