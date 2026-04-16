@@ -614,11 +614,19 @@ img {
 }
 
 .section {
-  &:not(:last-child) {
-    @media (width >= #{mixins.toEm(variables.$mobile)}) {
+  @media (width >= #{mixins.toEm(variables.$mobile)}) {
+    &:not(:last-child) {
       margin-bottom: mixins.toRem(30);
     }
-    @media (width < #{mixins.toEm(variables.$mobile)}) {
+    
+    &-large {
+      &:not(:last-child) {
+        margin-bottom: mixins.toRem(80);
+      }
+    }
+  }
+  @media (width < #{mixins.toEm(variables.$mobile)}) {
+    &:not(:last-child) {
       margin-bottom: mixins.toRem(45);
     }
   }

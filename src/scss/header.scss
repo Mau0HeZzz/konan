@@ -306,6 +306,7 @@
     padding: mixins.toRem(10);
     border-radius: mixins.toRem(15);
     width: mixins.toRem(685);
+    box-shadow: var(--header-shadow);
   }
 
   &__item {
