@@ -199,7 +199,7 @@
   &__subtitle {
     flex: 0 0 100%;
     font-weight: 500;
-    text-transform: lowercase;
+    
     @include mixins.adaptiveValue("font-size", 20, 14);
   }
 
@@ -244,7 +244,7 @@
       span {
         background-color: var(--main-white-color);
         position: relative;
-        text-transform: lowercase;
+        
         
         &:first-child {
           color: var(--dark-grey-color);
@@ -315,7 +315,7 @@
   &__label {
     font-weight: 500;
     color: var(--dark-grey-color);
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("font-size", 16, 14);
   }
@@ -360,7 +360,7 @@
     display: flex;
     justify-content: space-between;
     gap: mixins.toRem(10);
-    text-transform: lowercase;
+    
     font-weight: 500;
     
     @include mixins.adaptiveValue("font-size", 16, 14);

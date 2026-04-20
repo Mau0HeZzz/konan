@@ -58,9 +58,14 @@ body {
 		min-width: 0;
 	}
 
+  // &:has(.hero):not(:has(._header-scroll)) {
+  //   --cart-dropdown-minus: #{mixins.toRem(40)};
+  // }
+  // &:has(.hero):has(._header-scroll) {
+  //   --cart-dropdown-minus: #{mixins.toRem(20)};
+  // }
   &:has(.hero) {
-    --cart-dropdown-minus: #{mixins.toRem(40)};
-    .header {
+    .header:not(._header-scroll) {
       top: mixins.toRem(20);
       left: mixins.toRem(20);
       right: mixins.toRem(20);

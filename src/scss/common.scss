@@ -261,7 +261,7 @@ img {
     font-weight: 500;
     font-size: mixins.toRem(14);
     color: var(--dark-grey-color);
-    text-transform: lowercase;
+    
 
     .contact-form__item_black & {
       color: var(--main-white-color);
@@ -325,7 +325,7 @@ img {
     position: relative;
 
     &, *::placeholder {
-      text-transform: lowercase;
+      
     }
 
     .loaded & {
@@ -485,7 +485,7 @@ img {
 
     >span {
       flex: 1 1 auto;
-      text-transform: lowercase;
+      
 
       &:has(span:nth-child(2)) {
         display: flex;
@@ -520,7 +520,7 @@ img {
   flex-direction: column;
   gap: mixins.toRem(10);
   align-items: flex-start;
-  text-transform: lowercase;
+  
 
   &__label {
     padding-left: mixins.toRem(10);
@@ -758,7 +758,7 @@ summary {
 
   &__answer {
     font-weight: 500;
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("font-size", 20, 14);
     @include mixins.adaptiveValue("padding-top", 10, 0);
@@ -795,7 +795,7 @@ summary {
 
     p {
       font-weight: 500;
-      text-transform: lowercase;
+      
 
       @include mixins.adaptiveValue("font-size", 20, 14);
 
@@ -825,7 +825,7 @@ summary {
     display: flex;
     flex-wrap: wrap;
     gap: mixins.toRem(6);
-    text-transform: lowercase;
+    
     color: var(--dark-grey-color);
     font-weight: 500;
 
@@ -1135,7 +1135,7 @@ summary {
     display: flex;
     gap: mixins.toRem(4);
     font-weight: 500;
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("font-size", 16, 12);
 
@@ -1163,7 +1163,7 @@ summary {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-transform: lowercase;
+    
 
     .loaded & {
       transition: color 0.3s ease 0s;
@@ -1216,7 +1216,7 @@ summary {
     gap: mixins.toRem(4);
     font-weight: 500;
     font-size: mixins.toRem(12);
-    text-transform: lowercase;
+    
 
     li {
       display: flex;
@@ -1262,7 +1262,7 @@ summary {
   font-weight: 500;
   font-size: mixins.toRem(12);
   line-height: math.div(8 , 12);
-  text-transform: lowercase;
+  
 
   background-color: var(--bgc);
   color: var(--color);
@@ -1551,7 +1551,7 @@ summary {
   }
 
   &__body {
-    text-transform: lowercase;
+    
     font-weight: 500;
 
     @include mixins.adaptiveValue("font-size", 16, 14);
@@ -1579,7 +1579,7 @@ summary {
 
   >*:not(h1):not(h2):not(h3):not(h4):not(h5),
   .article__content-part>*:not(h1):not(h2):not(h3):not(h4):not(h5) {
-    text-transform: lowercase;
+    
     font-weight: 500;
     line-height: 1.2;
 

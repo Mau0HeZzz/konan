@@ -45,7 +45,7 @@
     @include mixins.adaptiveValue("border-radius", 15, 10);
 
     p {
-      text-transform: lowercase;
+      
       font-size: mixins.toRem(14);
     }
 

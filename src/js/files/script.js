@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDropboxFormComments();
   initArticleWysiwygNavigation();
   setArticleContentRows();
+  setBasketDropDownWidth();
 })
 
 window.addEventListener('load', () => {
@@ -557,4 +558,19 @@ function onMiniProductMouseOver(miniProduct) {
   const docFz = getDigFromString(window.getComputedStyle(document.documentElement)?.getPropertyValue?.('font-size') ?? 16);
 
   miniProduct.style.setProperty('--abs-height', `${abs.offsetHeight / docFz}rem`);
+}
+
+function setBasketDropDownWidth() {
+  const header = document.querySelector('.header');
+  const headerWrapper = header?.querySelector('.header__wrapper');
+
+  if (!headerWrapper) return;
+
+  const headerWrapperWidth = headerWrapper.offsetWidth;
+
+  header.style.setProperty('--wrapper-width', `${headerWrapperWidth}px`);
+
+  setTimeout(() => {
+    setBasketDropDownWidth();
+  }, 150);
 }

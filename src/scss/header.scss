@@ -10,12 +10,20 @@
   left: mixins.toRem(10);
   right: mixins.toRem(10);
 
-  .menu-open & {
-    opacity: 0;
+  .loaded & {
     transition: all 0.3s ease 0s;
   }
 
+  .menu-open & {
+    opacity: 0;
+  }
+
   &__container {
+    @media (width >= #{mixins.toEm(variables.$pc)}) {
+      .loaded & {
+        transition: all 0.3s ease 0s;
+      }
+    }
     @media (width < #{mixins.toEm(variables.$pc)}) {
       padding: 0;
     }
@@ -368,10 +376,11 @@
 
   &__dropdown {
     position: absolute;
-    right: mixins.toRem(-5);
+    right: mixins.toRem(-6);
     top: calc(100% + mixins.toRem(15));
     padding: mixins.toRem(10);
-    width: min(mixins.toRem(480), calc(100vw - var(--cart-dropdown-minus, #{mixins.toRem(20)})));
+    // width: min(mixins.toRem(480), calc(100vw - var(--cart-dropdown-minus, #{mixins.toRem(20)})));
+    width: min(mixins.toRem(480), var(--wrapper-width));
     border: mixins.toRem(1) solid var(--main-grey-color);
     max-height: calc(100dvh - var(--headerScrollHeight) - mixins.toRem(50));
     overflow: hidden;

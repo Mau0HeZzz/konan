@@ -61,7 +61,7 @@
   }
 
   &__text {
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("max-width", 300, 200);
 
@@ -159,7 +159,7 @@
   &__text {
     line-height: 1.2;
     font-weight: 500;
-    text-transform: lowercase;
+    
     @include mixins.adaptiveValue("font-size", 16, 14);
   }
 
@@ -221,7 +221,7 @@
 
   &__text {
     margin-top: auto;
-    text-transform: lowercase;
+    
 
     &:not(.cards__item_blue &) {
       color: var(--dark-grey-color);
@@ -409,7 +409,7 @@
   &__text {
     margin-top: auto;
     font-weight: 500;
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("font-size", 20, 14);
   }
@@ -492,7 +492,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--gap);
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("--gap", 15, 7);
 
@@ -702,7 +702,7 @@
 
   &__text {
     grid-column: 1 / span 2;
-    text-transform: lowercase;
+    
     font-weight: 500;
 
     @include mixins.adaptiveValue("font-size", 16, 12);
@@ -769,7 +769,7 @@
   &__name {
     display: flex;
     gap: mixins.toRem(5);
-    text-transform: lowercase;
+    
     font-weight: 500;
     @include mixins.adaptiveValue("font-size", 16, 12);
 
@@ -780,7 +780,7 @@
   }
 
   &__date {
-    text-transform: lowercase;
+    
     font-weight: 500;
     color: var(--dark-grey-color);
 
@@ -789,7 +789,7 @@
 
   &__text {
     font-weight: 500;
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("font-size", 16, 14);
   }
@@ -814,7 +814,7 @@
 
   &__text {
     max-width: mixins.toRem(705);
-    // text-transform: lowercase;
+    // 
     margin: 0 auto;
     text-align: center;
     font-weight: 500;
@@ -917,7 +917,7 @@
 
   &__text {
     margin-top: auto;
-    // text-transform: lowercase;
+    // 
 
     @include mixins.adaptiveValue("padding-left", 10, 5);
     @include mixins.adaptiveValue("padding-right", 10, 5);
@@ -1070,7 +1070,7 @@
     overflow: hidden;
     padding: 0 mixins.toRem(10);
     font-weight: 500;
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("font-size", 16, 14);
   }
@@ -1152,7 +1152,7 @@
     font-weight: 500;
     max-width: mixins.toRem(760);
     line-height: 1.2;
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("font-size", 20, 14);
     @include mixins.adaptiveValue("padding-left", 10, 5);

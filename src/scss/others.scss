@@ -16,7 +16,7 @@
 
   &__sidebar {
     background-color: var(--main-grey-color);
-    // text-transform: lowercase;
+    // 
 
     @include mixins.adaptiveValue("padding", 20, 15);
     @include mixins.adaptiveValue("border-radius", 15, 10);
@@ -179,7 +179,7 @@
     color: var(--dark-grey-color);
     display: flex;
     justify-content:center;align-items: center;
-    text-transform: lowercase;
+    
 
     @include mixins.adaptiveValue("border-radius", 10, 7);
     @include mixins.adaptiveValue("font-size", 12, 10);
@@ -241,7 +241,7 @@
 
     a {
       font-weight: 500;
-      text-transform: lowercase;
+      
       @include mixins.adaptiveValue("font-size", 16, 14);
 
       .loaded & {
